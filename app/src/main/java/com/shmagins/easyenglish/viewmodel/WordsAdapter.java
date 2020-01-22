@@ -18,8 +18,8 @@ public class WordsAdapter extends RecyclerView.Adapter {
     private List<Word> words;
     {
         words = new ArrayList<>();
-        words.add(new Word("Pidor", "Пидор", "En", true, 0));
-        words.add(new Word("Jopa", "Жопа", "En", true, 0));
+        words.add(new Word("Word 1", "Слово 1", "EnRu",  0));
+        words.add(new Word("Word 2", "Слово 2", "EnRu",  0));
     }
 
     class WordsViewHolder extends RecyclerView.ViewHolder{

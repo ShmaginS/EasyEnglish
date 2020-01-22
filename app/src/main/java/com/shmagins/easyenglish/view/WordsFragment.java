@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.easyenglish.R;
@@ -21,6 +23,9 @@ public class WordsFragment extends Fragment {
         RecyclerView recycler = fragmentView
                 .findViewById(R.id.word_card_recycler);
         recycler.setAdapter(new WordsAdapter());
+        recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(recycler);
         return fragmentView;
     }
 }
