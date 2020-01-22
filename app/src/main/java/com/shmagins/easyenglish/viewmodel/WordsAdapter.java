@@ -22,6 +22,10 @@ public class WordsAdapter extends RecyclerView.Adapter {
         words.add(new Word("Word 2", "Слово 2", "EnRu",  0));
     }
 
+    public void setWords(List<Word> words) {
+        this.words = words;
+    }
+
     class WordsViewHolder extends RecyclerView.ViewHolder{
         WordCardBinding binding;
 
