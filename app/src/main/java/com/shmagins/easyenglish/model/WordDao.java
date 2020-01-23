@@ -8,10 +8,12 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 @Dao
 public interface WordDao {
     @Query("SELECT * FROM word")
-    List<Word> getAll();
+    Observable<Word> getAll();
 
     @Query("SELECT * FROM word WHERE word=:word")
     Word getWord(String word);
