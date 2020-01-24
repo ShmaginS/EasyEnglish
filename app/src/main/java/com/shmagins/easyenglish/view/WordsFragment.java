@@ -1,5 +1,6 @@
 package com.shmagins.easyenglish.view;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import com.shmagins.easyenglish.viewmodel.WordsViewModel;
 import javax.inject.Inject;
 
 public class WordsFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +38,10 @@ public class WordsFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(recycler);
-
+        WordsViewModel viewModel = ViewModelProvider
+                .AndroidViewModelFactory
+                .getInstance(getActivity().getApplication())
+                .create(WordsViewModel.class);
         return fragmentView;
     }
 }
