@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/wordsFragment">
+
+    <fragment
+        android:id="@+id/wordsFragment"
+        android:name="com.shmagins.easyenglish.view.WordsFragment"
+        android:label="fragment_words"
+        tools:layout="@layout/fragment_words" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.shmagins.easyenglish.view.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.shmagins.easyenglish.view.StatsFragment"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" />
+</navigation>
