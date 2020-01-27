@@ -13,10 +13,14 @@ import io.reactivex.Observable;
 @Dao
 public interface WordDao {
     @Query("SELECT * FROM word")
-    Observable<Word> getAll();
+    Observable<List<Word>> getAll();
 
     @Query("SELECT * FROM word WHERE word=:word")
     Word getWord(String word);
+
+    @Query("DELETE FROM word where 1 = 1")
+    void deleteAll();
+
 
     @Insert
     void insert(Word word);

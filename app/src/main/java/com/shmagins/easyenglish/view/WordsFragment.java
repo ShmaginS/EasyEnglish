@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.functions.Consumer;
 
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.model.DaggerApplicationComponent;
+import com.shmagins.easyenglish.model.Word;
 import com.shmagins.easyenglish.model.WordDatabase;
 import com.shmagins.easyenglish.model.WordsApplication;
 import com.shmagins.easyenglish.viewmodel.WordsAdapter;
@@ -34,14 +36,20 @@ public class WordsFragment extends Fragment {
 
         RecyclerView recycler = fragmentView
                 .findViewById(R.id.word_card_recycler);
-        recycler.setAdapter(new WordsAdapter());
+        WordsAdapter adapter = new WordsAdapter();
+        recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(recycler);
-        WordsViewModel viewModel = ViewModelProvider
-                .AndroidViewModelFactory
-                .getInstance(getActivity().getApplication())
-                .create(WordsViewModel.class);
+        WordsViewModel viewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T)new WordsViewModel(getActivity().getApplication());
+            }
+        }).get(WordsViewModel.class);
+        viewModel.getAll()
+                .subscribe(adapter::setWords);
         return fragmentView;
     }
 }

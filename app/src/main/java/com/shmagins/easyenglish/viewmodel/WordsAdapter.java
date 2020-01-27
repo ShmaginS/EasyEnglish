@@ -18,12 +18,15 @@ public class WordsAdapter extends RecyclerView.Adapter {
     private List<Word> words;
     {
         words = new ArrayList<>();
-        words.add(new Word("Word 1", "Слово 1", "EnRu",  0));
-        words.add(new Word("Word 2", "Слово 2", "EnRu",  0));
     }
 
     public void setWords(List<Word> words) {
         this.words = words;
+        notifyDataSetChanged();
+    }
+    public void addWord(Word word) {
+        words.add(word);
+        notifyDataSetChanged();
     }
 
     class WordsViewHolder extends RecyclerView.ViewHolder{
