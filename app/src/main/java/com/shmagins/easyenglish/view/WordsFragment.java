@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import rx.Subscription;
 
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.model.DaggerApplicationComponent;
@@ -41,14 +44,11 @@ public class WordsFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(recycler);
-        WordsViewModel viewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T)new WordsViewModel(getActivity().getApplication());
-            }
-        }).get(WordsViewModel.class);
-        viewModel.getAll()
+        WordsViewModel viewModel = new ViewModelProvider(
+                getActivity(),
+                new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication()
+                )).get(WordsViewModel.class);
+        Disposable disposable = viewModel.getAll()
                 .subscribe(adapter::setWords);
         return fragmentView;
     }
