@@ -1,7 +1,5 @@
 package com.shmagins.easyenglish.view;
 
-import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,27 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import rx.Subscription;
 
+import com.shmagins.easyenglish.ApplicationComponent;
 import com.shmagins.easyenglish.R;
-import com.shmagins.easyenglish.model.DaggerApplicationComponent;
-import com.shmagins.easyenglish.model.Word;
-import com.shmagins.easyenglish.model.WordDatabase;
-import com.shmagins.easyenglish.model.WordsApplication;
-import com.shmagins.easyenglish.viewmodel.WordsAdapter;
-import com.shmagins.easyenglish.viewmodel.WordsViewModel;
-
-import javax.inject.Inject;
+import com.shmagins.easyenglish.WordsAdapter;
+import com.shmagins.easyenglish.WordsViewModel;
 
 public class WordsFragment extends Fragment {
+
+    private Disposable disposable;
 
     @Nullable
     @Override
@@ -48,7 +40,7 @@ public class WordsFragment extends Fragment {
                 getActivity(),
                 new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication()
                 )).get(WordsViewModel.class);
-        Disposable disposable = viewModel.getAll()
+        disposable = viewModel.getAll()
                 .subscribe(adapter::setWords);
         return fragmentView;
     }

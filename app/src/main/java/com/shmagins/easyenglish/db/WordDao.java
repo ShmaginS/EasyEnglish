@@ -1,4 +1,4 @@
-package com.shmagins.easyenglish.model;
+package com.shmagins.easyenglish.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

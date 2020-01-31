@@ -1,8 +1,11 @@
-package com.shmagins.easyenglish.model;
+package com.shmagins.easyenglish;
 
 import android.content.Context;
 
 import androidx.room.Room;
+
+import com.shmagins.easyenglish.db.WordDao;
+import com.shmagins.easyenglish.db.WordDatabase;
 
 import javax.inject.Singleton;
 

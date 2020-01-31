@@ -1,4 +1,4 @@
-package com.shmagins.easyenglish.model;
+package com.shmagins.easyenglish;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.shmagins.easyenglish.viewmodel;
+package com.shmagins.easyenglish;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +9,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.easyenglish.databinding.WordCardBinding;
-import com.shmagins.easyenglish.model.Word;
+import com.shmagins.easyenglish.db.Word;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsAdapter extends RecyclerView.Adapter {
     private List<Word> words;
+
     {
         words = new ArrayList<>();
     }
@@ -24,12 +25,13 @@ public class WordsAdapter extends RecyclerView.Adapter {
         this.words = words;
         notifyDataSetChanged();
     }
+
     public void addWord(Word word) {
         words.add(word);
         notifyDataSetChanged();
     }
 
-    class WordsViewHolder extends RecyclerView.ViewHolder{
+    class WordsViewHolder extends RecyclerView.ViewHolder {
         WordCardBinding binding;
 
         public WordsViewHolder(@NonNull View itemView) {
@@ -48,7 +50,7 @@ public class WordsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((WordsViewHolder)holder).binding.setWord(words.get(position));
+        ((WordsViewHolder) holder).binding.setWord(words.get(position));
     }
 
     @Override

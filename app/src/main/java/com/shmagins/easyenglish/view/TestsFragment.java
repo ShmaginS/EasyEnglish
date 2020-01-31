@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.shmagins.easyenglish.R;
 
-public class TasksFragment extends Fragment {
+public class TestsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        View view = inflater.inflate(R.layout.fragment_tests, container, false);
         return view;
     }
 }

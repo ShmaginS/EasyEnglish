@@ -5,7 +5,7 @@
     <data>
         <variable
             name="word"
-            type="com.shmagins.easyenglish.model.Word" />
+            type="com.shmagins.easyenglish.db.Word" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@{word.word}"
-            android:textSize="32sp"/>
+            android:textSize="48sp"
+            android:layout_marginTop="100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{word.translation}"
+            android:textStyle="italic"
+            android:textSize="24sp"
+            android:layout_marginTop="40dp"/>
+
+        <ImageButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_volume_up_black_48"/>
 
     </LinearLayout>
 

@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_words" />
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="com.shmagins.easyenglish.view.TasksFragment"
+        android:name="com.shmagins.easyenglish.view.TestsFragment"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_tests" />
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.shmagins.easyenglish.view.StatsFragment"
