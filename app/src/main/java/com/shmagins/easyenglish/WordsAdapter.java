@@ -34,7 +34,7 @@ public class WordsAdapter extends RecyclerView.Adapter {
     class WordsViewHolder extends RecyclerView.ViewHolder {
         WordCardBinding binding;
 
-        public WordsViewHolder(@NonNull View itemView) {
+        WordsViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }

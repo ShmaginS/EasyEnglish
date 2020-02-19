@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import io.reactivex.disposables.Disposable;
 
-import com.shmagins.easyenglish.ApplicationComponent;
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.WordsAdapter;
 import com.shmagins.easyenglish.WordsViewModel;
