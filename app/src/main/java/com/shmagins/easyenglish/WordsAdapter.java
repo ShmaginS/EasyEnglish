@@ -3,6 +3,7 @@ package com.shmagins.easyenglish;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -51,6 +52,9 @@ public class WordsAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((WordsViewHolder) holder).binding.setWord(words.get(position));
+        ((WordsViewHolder) holder).binding.setHandler((v) -> {
+            ((WordsViewHolder) holder).binding.word.setText("AZAZA " + v);
+        });
     }
 
     @Override
