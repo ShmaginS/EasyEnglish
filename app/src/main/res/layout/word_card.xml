@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="word"
-            type="com.shmagins.easyenglish.db.Word" />
+            name="calculation"
+            type="com.shmagins.easyenglish.db.Calculation" />
         <variable
             name="handler"
             type="com.shmagins.easyenglish.handlers.WordCardOnClickHandler" />
@@ -19,11 +19,11 @@
 
 
         <TextView
-            android:id="@+id/word"
+            android:id="@+id/calculation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="128dp"
-            android:text="@{word.word}"
+            android:text="@{calculation.word}"
             android:textColor="@color/darkTextColor"
             android:textSize="48sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:scaleType="fitCenter"
-            android:src="@drawable/baseline_volume_up_black_48"
+            android:src="@drawable/button_shape"
             android:textColor="@color/darkTextColor"
-            android:onClick="@{() -> handler.onClick(word.word)}"
+            android:onClick="@{() -> handler.onClick(calculation.word)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -51,19 +51,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:text="@{word.pronunciation}"
+            android:text="@{calculation.pronunciation}"
             android:textColor="@color/darkTextColor"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word" />
+            app:layout_constraintTop_toBottomOf="@+id/calculation" />
 
         <TextView
             android:id="@+id/word_translation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:text="@{word.translation}"
+            android:text="@{calculation.translation}"
             android:textColor="@color/darkTextColor"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"

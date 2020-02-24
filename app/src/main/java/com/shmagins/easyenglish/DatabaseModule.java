@@ -4,8 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.shmagins.easyenglish.db.WordDao;
-import com.shmagins.easyenglish.db.WordDatabase;
+import com.shmagins.easyenglish.db.CalculationDao;
+import com.shmagins.easyenglish.db.CalculationDatabase;
 
 import javax.inject.Singleton;
 
@@ -21,10 +21,10 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    WordDatabase provideWordDatabase() {
+    CalculationDatabase provideWordDatabase() {
         return Room.databaseBuilder(
                 appContext,
-                WordDatabase.class,
+                CalculationDatabase.class,
                 databaseName
         ).fallbackToDestructiveMigration()
                 .build();
@@ -32,8 +32,8 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    WordDao provideWordDao(WordDatabase db) {
-        return db.wordDao();
+    CalculationDao provideWordDao(CalculationDatabase db) {
+        return db.calculationDao();
     }
 
     private Context appContext;

@@ -3,11 +3,10 @@ package com.shmagins.easyenglish;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.shmagins.easyenglish.db.Word;
-import com.shmagins.easyenglish.db.WordDatabase;
+import com.shmagins.easyenglish.db.Calculation;
+import com.shmagins.easyenglish.db.CalculationDatabase;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 
 import javax.inject.Inject;
@@ -17,26 +16,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class WordsRepository {
-    WordDatabase wdb;
+    CalculationDatabase wdb;
     @Inject
-    public WordsRepository(WordDatabase wdb) {
+    public WordsRepository(CalculationDatabase wdb) {
         this.wdb = wdb;
     }
 
-    public Observable<List<Word>> getAllWords(){
-        return wdb.wordDao().getAll();
+    public Observable<List<Calculation>> getAllWords(){
+        return wdb.calculationDao().getAll();
     }
-    public void insertWords(List<Word> words) {
-        Observable.fromIterable(words)
+    public void insertWords(List<Calculation> calculations) {
+        Observable.fromIterable(calculations)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.wordDao().insert(word),
+                .subscribe(word -> wdb.calculationDao().insert(word),
                         throwable -> Log.d("happy", "insertWords: insertion error"));
     }
 
-    public void updateWords(List<Word> words){
-        Observable.fromIterable(words)
+    public void updateWords(List<Calculation> calculations){
+        Observable.fromIterable(calculations)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.wordDao().insert(word),
+                .subscribe(word -> wdb.calculationDao().insert(word),
                         throwable -> Log.d("happy", "insertWords: update error"));
     }
 
@@ -47,15 +46,15 @@ public class WordsRepository {
 }
 
 class DeleteAllTask extends AsyncTask<Void, Void, Void> {
-    WordDatabase wdb;
+    CalculationDatabase wdb;
 
-    public DeleteAllTask(WordDatabase wdb) {
+    public DeleteAllTask(CalculationDatabase wdb) {
         this.wdb = wdb;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
-        wdb.wordDao().deleteAll();
+        wdb.calculationDao().deleteAll();
         return null;
     }
 }

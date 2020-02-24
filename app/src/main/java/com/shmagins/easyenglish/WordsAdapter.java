@@ -3,32 +3,31 @@ package com.shmagins.easyenglish;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.easyenglish.databinding.WordCardBinding;
-import com.shmagins.easyenglish.db.Word;
+import com.shmagins.easyenglish.db.Calculation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsAdapter extends RecyclerView.Adapter {
-    private List<Word> words;
+    private List<Calculation> calculations;
 
     {
-        words = new ArrayList<>();
+        calculations = new ArrayList<>();
     }
 
-    public void setWords(List<Word> words) {
-        this.words = words;
+    public void setCalculations(List<Calculation> calculations) {
+        this.calculations = calculations;
         notifyDataSetChanged();
     }
 
-    public void addWord(Word word) {
-        words.add(word);
+    public void addWord(Calculation calculation) {
+        calculations.add(calculation);
         notifyDataSetChanged();
     }
 
@@ -51,14 +50,14 @@ public class WordsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((WordsViewHolder) holder).binding.setWord(words.get(position));
+        ((WordsViewHolder) holder).binding.setCalculation(calculations.get(position));
         ((WordsViewHolder) holder).binding.setHandler((v) -> {
-            ((WordsViewHolder) holder).binding.word.setText("AZAZA " + v);
+            ((WordsViewHolder) holder).binding.calculation.setText("AZAZA " + v);
         });
     }
 
     @Override
     public int getItemCount() {
-        return words.size();
+        return calculations.size();
     }
 }

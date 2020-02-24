@@ -40,7 +40,7 @@ public class WordsFragment extends Fragment {
                 new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication()
                 )).get(WordsViewModel.class);
         disposable = viewModel.getAll()
-                .subscribe(adapter::setWords);
+                .subscribe(adapter::setCalculations);
         return fragmentView;
     }
 }

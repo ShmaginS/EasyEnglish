@@ -5,8 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Word {
-    public Word(@NonNull String word, String translation, String languageCode, String pronunciation, int difficultyLevel) {
+public class Calculation {
+    public Calculation(@NonNull String word, String translation, String languageCode, String pronunciation, int difficultyLevel) {
         this.word = word;
         this.translation = translation;
         this.languageCode = languageCode;
