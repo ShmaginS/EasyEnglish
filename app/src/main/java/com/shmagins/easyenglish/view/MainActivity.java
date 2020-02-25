@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()){
                 case R.id.bottom_navigation_item1:
-                    navController.navigate(R.id.wordsFragment);
+                    navController.navigate(R.id.calculationFragment);
                     break;
                 case R.id.bottom_navigation_item2:
                     navController.navigate(R.id.tasksFragment);

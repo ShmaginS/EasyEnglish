@@ -19,14 +19,14 @@ import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.WordsAdapter;
 import com.shmagins.easyenglish.WordsViewModel;
 
-public class WordsFragment extends Fragment {
+public class CalculationFragment extends Fragment {
 
     private Disposable disposable;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_words, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_calculation, container, false);
 
         RecyclerView recycler = fragmentView
                 .findViewById(R.id.word_card_recycler);

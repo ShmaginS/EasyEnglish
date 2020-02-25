@@ -13,9 +13,9 @@ public class WordsApplication extends Application {
         applicationComponent.inject(this);
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    public ApplicationModule.ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-    private ApplicationComponent applicationComponent;
+    private ApplicationModule.ApplicationComponent applicationComponent;
 }

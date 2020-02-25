@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/wordsFragment">
+    app:startDestination="@id/calculationFragment">
 
     <fragment
-        android:id="@+id/wordsFragment"
-        android:name="com.shmagins.easyenglish.view.WordsFragment"
+        android:id="@+id/calculationFragment"
+        android:name="com.shmagins.easyenglish.view.CalculationFragment"
         android:label="fragment_words"
-        tools:layout="@layout/fragment_words" />
+        tools:layout="@layout/fragment_calculation" />
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.shmagins.easyenglish.view.TestsFragment"

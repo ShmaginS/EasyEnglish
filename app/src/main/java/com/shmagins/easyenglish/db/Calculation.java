@@ -6,19 +6,11 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Calculation {
-    public Calculation(@NonNull String word, String translation, String languageCode, String pronunciation, int difficultyLevel) {
-        this.word = word;
-        this.translation = translation;
-        this.languageCode = languageCode;
-        this.pronunciation = pronunciation;
-        this.difficultyLevel = difficultyLevel;
-    }
 
     @NonNull
     @PrimaryKey
-    public String word;
-    public String translation;
-    public String languageCode;
-    public String pronunciation;
-    public int difficultyLevel;
+    public int first;
+    public int second;
+    public String operation;
+    public int result;
 }

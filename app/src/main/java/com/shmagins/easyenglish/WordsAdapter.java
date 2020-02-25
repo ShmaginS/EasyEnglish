@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shmagins.easyenglish.databinding.WordCardBinding;
+import com.shmagins.easyenglish.databinding.CalculationCardBinding;
 import com.shmagins.easyenglish.db.Calculation;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class WordsAdapter extends RecyclerView.Adapter {
     }
 
     class WordsViewHolder extends RecyclerView.ViewHolder {
-        WordCardBinding binding;
+        CalculationCardBinding binding;
 
         WordsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -44,7 +44,7 @@ public class WordsAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        WordCardBinding binding = WordCardBinding.inflate(inflater, parent, false);
+        CalculationCardBinding binding = CalculationCardBinding.inflate(inflater, parent, false);
         return new WordsViewHolder(binding.getRoot());
     }
 
