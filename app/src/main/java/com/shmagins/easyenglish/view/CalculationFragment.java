@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.Disposable;
 
 import com.shmagins.easyenglish.R;
-import com.shmagins.easyenglish.WordsAdapter;
+import com.shmagins.easyenglish.CalculationsAdapter;
 import com.shmagins.easyenglish.WordsViewModel;
 
 public class CalculationFragment extends Fragment {
@@ -30,7 +30,7 @@ public class CalculationFragment extends Fragment {
 
         RecyclerView recycler = fragmentView
                 .findViewById(R.id.word_card_recycler);
-        WordsAdapter adapter = new WordsAdapter();
+        CalculationsAdapter adapter = new CalculationsAdapter();
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();

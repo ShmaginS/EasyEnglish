@@ -2,7 +2,7 @@ package com.shmagins.easyenglish;
 
 import android.app.Application;
 
-public class WordsApplication extends Application {
+public class CalculationApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

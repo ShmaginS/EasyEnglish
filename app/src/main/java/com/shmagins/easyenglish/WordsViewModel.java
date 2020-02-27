@@ -22,7 +22,7 @@ public class WordsViewModel extends AndroidViewModel {
 
     public WordsViewModel(@NonNull Application application) {
         super(application);
-        ((WordsApplication)application).getApplicationComponent()
+        ((CalculationApplication)application).getApplicationComponent()
                 .inject(this);
         repository = new WordsRepository(wdb);
 
