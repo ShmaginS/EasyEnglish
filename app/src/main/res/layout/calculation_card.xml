@@ -4,12 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.widget.Button"/>
+        <import type="com.shmagins.easyenglish.handlers.CalculationCardHandler" />
         <variable
             name="calculation"
             type="com.shmagins.easyenglish.db.Calculation" />
-        <variable
-            name="handler"
-            type="com.shmagins.easyenglish.handlers.WordCardOnClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +28,7 @@
             android:paddingTop="50dp"
             android:paddingRight="50dp"
             android:paddingBottom="50dp"
-            android:text="@{calculation.first}"
+            android:text="@{String.valueOf(calculation.first)}"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/operation"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,7 +66,7 @@
             android:paddingTop="50dp"
             android:paddingRight="50dp"
             android:paddingBottom="50dp"
-            android:text="@{calculation.second}"
+            android:text="@{String.valueOf(calculation.second)}"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -131,6 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
+            android:onClick="@{(v) -> CalculationCardHandler.onDigitClick(((Button)v).getText())}"
             app:layout_constraintBottom_toTopOf="@+id/button10"
             app:layout_constraintEnd_toStartOf="@+id/button8"
             app:layout_constraintHorizontal_bias="0.5"

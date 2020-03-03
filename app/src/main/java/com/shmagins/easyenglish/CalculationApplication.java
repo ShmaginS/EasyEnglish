@@ -6,7 +6,7 @@ public class CalculationApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationComponent = DaggerApplicationComponent.builder()
+        applicationComponent = DaggerApplicationModule_ApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .databaseModule(new DatabaseModule(this))
                 .build();

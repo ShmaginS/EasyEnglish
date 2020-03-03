@@ -51,9 +51,6 @@ public class CalculationsAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((CalculationsViewHolder) holder).binding.setCalculation(calculations.get(position));
-        ((CalculationsViewHolder) holder).binding.setHandler((v) -> {
-            // click
-        });
     }
 
     @Override

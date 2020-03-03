@@ -9,15 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import io.reactivex.disposables.Disposable;
 
+import com.shmagins.easyenglish.CalculationViewModelFactory;
+import com.shmagins.easyenglish.CalculationsViewModel;
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.CalculationsAdapter;
-import com.shmagins.easyenglish.WordsViewModel;
 
 public class CalculationFragment extends Fragment {
 
@@ -35,10 +37,7 @@ public class CalculationFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(recycler);
-        WordsViewModel viewModel = new ViewModelProvider(
-                getActivity(),
-                new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication()
-                )).get(WordsViewModel.class);
+        CalculationsViewModel viewModel = ViewModelProviders.of(getActivity(), new CalculationViewModelFactory(getActivity().getApplication())).get(CalculationsViewModel.class);
         disposable = viewModel.getAll()
                 .subscribe(adapter::setCalculations);
         return fragmentView;

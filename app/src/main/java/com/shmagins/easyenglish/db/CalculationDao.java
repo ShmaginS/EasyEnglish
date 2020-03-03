@@ -15,8 +15,8 @@ public interface CalculationDao {
     @Query("SELECT * FROM Calculation")
     Observable<List<Calculation>> getAll();
 
-    @Query("SELECT * FROM Calculation WHERE word=:word")
-    Calculation getWord(String word);
+    @Query("SELECT * FROM Calculation WHERE id=:id")
+    Calculation getCalculation(int id);
 
     @Query("DELETE FROM Calculation where 1 = 1")
     void deleteAll();

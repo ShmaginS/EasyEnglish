@@ -36,14 +36,14 @@ public class ApplicationModule {
             ApplicationModule.class,
             DatabaseModule.class
     })
-    public static interface ApplicationComponent {
+    public interface ApplicationComponent {
         Context getContext();
 
         Application getApplication();
 
         void inject(CalculationApplication wordsApplication);
 
-        void inject(WordsViewModel wordsViewModel);
+        void inject(CalculationsViewModel calculationsViewModel);
 
         void inject(CalculationFragment calculationFragment);
     }
