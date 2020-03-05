@@ -14,7 +14,7 @@ public class Calculation {
     }
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     public int id;
     public int first;
     public int second;

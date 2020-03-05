@@ -27,6 +27,7 @@ public class CalculationsViewModel extends AndroidViewModel {
         ((CalculationApplication)application).getApplicationComponent()
                 .inject(this);
         repository = new WordsRepository(wdb);
+        repository.deleteAll();
         List<Calculation> testCalculations = new ArrayList<>();
         testCalculations.add(new Calculation(2,2,"*", 4));
         testCalculations.add(new Calculation(1,3,"+", 4));
