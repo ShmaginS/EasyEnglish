@@ -33,6 +33,7 @@ public class CalculationFragment extends Fragment {
         RecyclerView recycler = fragmentView
                 .findViewById(R.id.word_card_recycler);
         CalculationsAdapter adapter = new CalculationsAdapter();
+        adapter.setRecyclerLink(recycler);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();

@@ -38,10 +38,11 @@ public class CalculationsViewModel extends AndroidViewModel {
     }
 
     public Observable<List<Calculation>> getAll(){
-        return wdb.calculationDao().getAll();
+        return repository.getAllWords();
     }
 
-    public void onDigitClick(CharSequence s){
-
+    public void updateCalculation(Calculation calculation){
+        repository.updateWord(calculation);
     }
+
 }

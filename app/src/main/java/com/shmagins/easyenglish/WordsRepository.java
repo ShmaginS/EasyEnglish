@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -35,12 +36,22 @@ public class WordsRepository {
     public void updateWords(List<Calculation> calculations){
         Observable.fromIterable(calculations)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.calculationDao().insert(word),
-                        throwable -> Log.d("happy", "insertWords: update error"));
+                .subscribe(word -> wdb.calculationDao().update(word),
+                        throwable -> Log.d("happy", "updateWords: update error"));
     }
 
+    public void updateWord(Calculation calculation){
+        Observable.just(calculation)
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(word -> wdb.calculationDao().update(word),
+                        throwable -> Log.d("happy", "updateWord: update error"));
+    }
+
+
+
     public void deleteAll() {
-        new DeleteAllTask(wdb);
+        DeleteAllTask task = new DeleteAllTask(wdb);
+        task.execute();
 
     }
 }

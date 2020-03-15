@@ -7,10 +7,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Calculation {
     public Calculation(int first, int second, String operation, int result) {
+        this.id = 0;
         this.first = first;
         this.second = second;
         this.operation = operation;
         this.result = result;
+        this.answer = Integer.MIN_VALUE;
     }
 
     @NonNull
@@ -20,4 +22,5 @@ public class Calculation {
     public int second;
     public String operation;
     public int result;
+    public int answer;
 }
