@@ -2,12 +2,14 @@ package com.shmagins.easyenglish.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Calculation {
-    public Calculation(int first, int second, String operation, int result) {
-        this.id = 0;
+
+    public Calculation(int id, int first, int second, String operation, int result) {
+        this.id = id;
         this.first = first;
         this.second = second;
         this.operation = operation;

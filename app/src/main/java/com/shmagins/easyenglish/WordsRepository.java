@@ -23,27 +23,22 @@ public class WordsRepository {
         this.wdb = wdb;
     }
 
-    public Observable<List<Calculation>> getAllWords(){
+    public Observable<List<Calculation>> getAllCalculations(){
         return wdb.calculationDao().getAll();
     }
-    public void insertWords(List<Calculation> calculations) {
+    public void insertCalculations(List<Calculation> calculations) {
         Observable.fromIterable(calculations)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.calculationDao().insert(word),
+                .subscribe(calc -> wdb.calculationDao().insert(calc),
                         throwable -> Log.d("happy", "insertWords: insertion error"));
     }
 
-    public void updateWords(List<Calculation> calculations){
-        Observable.fromIterable(calculations)
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.calculationDao().update(word),
-                        throwable -> Log.d("happy", "updateWords: update error"));
-    }
-
-    public void updateWord(Calculation calculation){
+    public void updateCalculation(Calculation calculation){
+        Log.d("happy", "updateCalculation: BLYAT CYKA");
+        Log.d("happy", "updateCalculation: " + calculation.id + " " + calculation.first + " " + calculation.operation + " " + calculation.second + " = " + calculation.result + " (answer: " + calculation.answer + ")");
         Observable.just(calculation)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(word -> wdb.calculationDao().update(word),
+                .subscribe(calc -> wdb.calculationDao().update(calc),
                         throwable -> Log.d("happy", "updateWord: update error"));
     }
 

@@ -2,20 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:checked="true"
-        android:icon="@android:drawable/gallery_thumb"
-        android:id="@+id/bottom_navigation_item1"
-        android:title="TODO" />
+        android:icon="@drawable/icons8_test_48"
+        android:id="@+id/bottom_navigation_exercises"
+        android:title="Exercises" />
 
     <item
         android:checked="true"
-        android:icon="@android:drawable/bottom_bar"
-        android:id="@+id/bottom_navigation_item2"
-        android:title="TODO" />
-
-    <item
-        android:checked="true"
-        android:icon="@android:drawable/btn_minus"
-        android:id="@+id/bottom_navigation_item3"
-        android:title="TODO" />
+        android:icon="@drawable/icons8_graphic"
+        android:id="@+id/bottom_navigation_stats"
+        android:title="Stats" />
 
 </menu>

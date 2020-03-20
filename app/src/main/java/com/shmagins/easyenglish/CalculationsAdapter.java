@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +27,6 @@ import java.util.List;
 
 public class CalculationsAdapter extends RecyclerView.Adapter {
     private List<Calculation> calculations;
-    private RecyclerView connectedRecycler;
 
     {
         calculations = new ArrayList<>();
@@ -34,16 +34,14 @@ public class CalculationsAdapter extends RecyclerView.Adapter {
 
     public void setCalculations(List<Calculation> calculations) {
         this.calculations = calculations;
-        notifyDataSetChanged();
+    }
+
+    public void setCalculationAnswer(int index, int answer){
+        calculations.get(index).answer = answer;
     }
 
     public void addCalculation(Calculation calculation) {
         calculations.add(calculation);
-        notifyDataSetChanged();
-    }
-
-    public void setRecyclerLink(RecyclerView recycler) {
-        connectedRecycler = recycler;
     }
 
     class CalculationsViewHolder extends RecyclerView.ViewHolder {
@@ -73,34 +71,6 @@ public class CalculationsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CalculationsViewHolder h = (CalculationsViewHolder) holder;
         h.bind(calculations.get(position));
-//        h.binding.answer.setOnEditorActionListener((textView, i, keyEvent) -> {
-//
-//            if (i == EditorInfo.IME_ACTION_DONE) {
-//                if (connectedRecycler != null) {
-//                    try {
-//                        Context application = connectedRecycler
-//                                .getContext()
-//                                .getApplicationContext();
-//                        InputMethodManager imm = (InputMethodManager)
-//                                application
-//                                .getSystemService(Context.INPUT_METHOD_SERVICE);
-//                        imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-//                    CalculationsViewModel viewModel =
-//                            ViewModelProviders.of(connectedRecycler.getContext(),
-//                                    new CalculationViewModelFactory(application))
-//                                    .get(CalculationsViewModel.class);
-//                        if (position != calculations.size() - 1) {
-//                            connectedRecycler.scrollToPosition(position + 1);
-//                        }
-//                    } catch (NullPointerException e) {
-//                        Log.d("happy", "onEditorAction: NPE");
-//                    }
-//                }
-//
-//                return true;
-//            }
-//            return false;
-//        });
     }
 
     @Override

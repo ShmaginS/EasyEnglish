@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shmagins.easyenglish.R;
@@ -20,13 +22,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()){
-                case R.id.bottom_navigation_item1:
+                case R.id.bottom_navigation_exercises:
                     navController.navigate(R.id.calculationFragment);
                     break;
-                case R.id.bottom_navigation_item2:
-                    navController.navigate(R.id.tasksFragment);
-                    break;
-                case R.id.bottom_navigation_item3:
+                case R.id.bottom_navigation_stats:
                     navController.navigate(R.id.statsFragment);
                     break;
             }
@@ -35,4 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onStartCalculationClick(View view) {
+        Intent intent = CalculationActivity.getStartIntent(this, 20);
+        startActivity(intent);
+    }
 }
