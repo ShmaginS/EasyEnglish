@@ -16,16 +16,21 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class WordsRepository {
+public class CalcRepository {
     CalculationDatabase wdb;
     @Inject
-    public WordsRepository(CalculationDatabase wdb) {
+    public CalcRepository(CalculationDatabase wdb) {
         this.wdb = wdb;
     }
 
-    public Observable<List<Calculation>> getAllCalculations(){
-        return wdb.calculationDao().getAll();
+    public Observable<List<Calculation>> getAllCalculations(int limit){
+        if (limit == 0) {
+            return wdb.calculationDao().getAll();
+        } else {
+            return wdb.calculationDao().getAllWithLimit(limit);
+        }
     }
+
     public void insertCalculations(List<Calculation> calculations) {
         Observable.fromIterable(calculations)
                 .subscribeOn(Schedulers.newThread())

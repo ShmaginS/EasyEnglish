@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Easy English</string>
+    <string name="app_name">Super Brain</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_calculation_count_title">Количество примеров</string>
+    <string name="pref_calculation_count_default" >20</string>
 </resources>

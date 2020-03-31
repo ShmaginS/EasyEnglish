@@ -25,7 +25,7 @@ import com.shmagins.easyenglish.db.Calculation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculationsAdapter extends RecyclerView.Adapter {
+public class CalcAdapter extends RecyclerView.Adapter {
     private List<Calculation> calculations;
 
     {

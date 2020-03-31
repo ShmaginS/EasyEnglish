@@ -6,8 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()){
                 case R.id.bottom_navigation_exercises:
-                    navController.navigate(R.id.calculationFragment);
+                    navController.navigate(R.id.mainFragment);
                     break;
                 case R.id.bottom_navigation_stats:
                     navController.navigate(R.id.statsFragment);
@@ -35,7 +38,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onStartCalculationClick(View view) {
-        Intent intent = CalculationActivity.getStartIntent(this, 20);
+        int count = Integer.parseInt(
+                PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("pref_calculation_count", "20")
+        );
+        Intent intent = CalculationActivity.getStartIntent(this, count);
+        startActivity(intent);
+        //задание на интеллект
+    }
+
+    public void onStartMemoryClick(View view) {
+        Intent intent = MemoryActivity.getStartIntent(this, 4, 5);
+        startActivity(intent);
+        //задание на память
+    }
+
+    public void onShowSettingsClick(View view) {
+        Intent intent = SettingsActivity.getStartIntent(this);
         startActivity(intent);
     }
 }

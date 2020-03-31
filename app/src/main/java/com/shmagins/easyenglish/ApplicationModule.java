@@ -3,7 +3,7 @@ package com.shmagins.easyenglish;
 import android.app.Application;
 import android.content.Context;
 
-import com.shmagins.easyenglish.view.CalculationFragment;
+import com.shmagins.easyenglish.view.MainFragment;
 
 import javax.inject.Singleton;
 
@@ -43,8 +43,8 @@ public class ApplicationModule {
 
         void inject(CalculationApplication wordsApplication);
 
-        void inject(CalculationsViewModel calculationsViewModel);
+        void inject(AppViewModel appViewModel);
 
-        void inject(CalculationFragment calculationFragment);
+        void inject(MainFragment mainFragment);
     }
 }

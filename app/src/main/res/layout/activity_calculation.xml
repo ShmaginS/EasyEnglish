@@ -30,7 +30,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button19"
+                    android:id="@+id/buttonPrev"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -42,7 +42,7 @@
                     android:textSize="30sp" />
 
                 <Button
-                    android:id="@+id/button21"
+                    android:id="@+id/buttonNext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -184,6 +184,17 @@
                     android:layout_weight="1" />
 
                 <Button
+                    android:id="@+id/button17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:text="0"
+                    android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
+                    android:textSize="30sp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"/>
+
+                <Button
                     android:id="@+id/button18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -194,15 +205,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"/>
 
-                <Button
-                    android:id="@+id/button17"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_shape"
-                    android:text="0"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -215,7 +218,7 @@
 
         <variable
             name="viewModel"
-            type="com.shmagins.easyenglish.CalculationsViewModel" />
+            type="com.shmagins.easyenglish.AppViewModel" />
 
         <variable
             name="recycler"

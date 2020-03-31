@@ -11,42 +11,57 @@
         android:id="@+id/button_start_calculation"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:onClick="onStartCalculationClick"
-        android:text="Начать"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_shape"
-        app:layout_constraintBottom_toTopOf="@+id/button_recreate_calculation"
+        android:onClick="onStartCalculationClick"
+        android:text="Развивать мозг"
+        app:layout_constraintBottom_toTopOf="@+id/button_start_memory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:layout_marginBottom="10dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/button_recreate_calculation"
+        android:id="@+id/button_start_memory"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Пересоздать примеры"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_shape"
+        android:onClick="onStartMemoryClick"
+        android:text="Развивать память"
+        app:layout_constraintBottom_toTopOf="@+id/button_preferences"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_start_calculation" />
+
+    <Button
+        android:id="@+id/button_preferences"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_shape"
+        android:text="Настройки"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_start_calculation"
-        android:layout_marginBottom="10dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/button_start_memory"
+        android:onClick="onShowSettingsClick"/>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
         android:scaleType="centerInside"
         android:src="@drawable/brain"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button_start_calculation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24000001"
+        app:layout_constraintVertical_bias="0.41000003"
         app:layout_constraintVertical_chainStyle="packed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

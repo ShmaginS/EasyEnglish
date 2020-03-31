@@ -15,6 +15,9 @@ public interface CalculationDao {
     @Query("SELECT * FROM Calculation")
     Observable<List<Calculation>> getAll();
 
+    @Query("SELECT * FROM Calculation LIMIT :limit")
+    Observable<List<Calculation>> getAllWithLimit(int limit);
+
     @Query("SELECT * FROM Calculation WHERE id=:id")
     Calculation getCalculation(int id);
 
