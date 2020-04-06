@@ -1,8 +1,10 @@
 package com.shmagins.easyenglish;
 
 import android.app.Application;
-import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.easyenglish.db.Calculation;
 import com.shmagins.easyenglish.db.CalculationDatabase;
+import com.shmagins.easyenglish.view.SmilesActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +26,13 @@ import io.reactivex.Observable;
 public class AppViewModel extends AndroidViewModel {
     @Inject
     CalculationDatabase cdb;
+    @Inject
+    Context context;
     private CalcRepository repository;
 
     public AppViewModel(@NonNull Application application) {
         super(application);
-        ((CalculationApplication) application).getApplicationComponent()
+        ((BrainApplication) application).getApplicationComponent()
                 .inject(this);
         repository = new CalcRepository(cdb);
         repository.deleteAll();
@@ -125,7 +130,7 @@ public class AppViewModel extends AndroidViewModel {
         }
     }
 
-    void updateCalculationFromHolder(CalcAdapter.CalculationsViewHolder holder) {
+    private void updateCalculationFromHolder(CalcAdapter.CalculationsViewHolder holder) {
         Calculation calculation = holder.binding.getCalculation();
         if (holder.binding.answer.getText().length() != 0) {
             calculation.answer = Integer.parseInt(holder.binding.answer.getText().toString());

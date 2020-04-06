@@ -6,4 +6,5 @@
     <color name="backgroundColor">#FFF1FD</color>
     <color name="textColor">#000000</color>
     <color name="darkTextColor">#202923</color>
+    <color name="pairGameCardColor">#FFFFFF</color>
 </resources>

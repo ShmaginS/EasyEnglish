@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="imageState"
             type="com.shmagins.easyenglish.ImageState" />
@@ -12,15 +13,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_margin="5dp"
+        android:background="@drawable/pair_game_card_shape"
+        android:visibility="@{imageState.isOpened ? View.VISIBLE : View.INVISIBLE}">
 
         <ImageView
             android:id="@+id/memory_image"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@drawable/button_shape"
             android:scaleType="centerInside"
-            android:src='@{imageState.isOpened? imageState.resource : 0}'
+            android:background="@drawable/pair_game_card_shape"
+            android:backgroundColor='@{imageState.isSelected ? "#FF00FF" : "#00FFFFFF"}'
+            android:src='@{imageState.resource}'
+            android:fadeOut="@{imageState.isOpened ? false : true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

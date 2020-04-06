@@ -1,16 +1,13 @@
 package com.shmagins.easyenglish.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStartCalculationClick(View view) {
         int count = Integer.parseInt(
                 PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("pref_calculation_count", "20")
+                .getString("pref_calculation_count", getResources().getString(R.string.pref_calculation_count_default))
         );
         Intent intent = CalculationActivity.getStartIntent(this, count);
         startActivity(intent);
@@ -48,7 +45,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onStartMemoryClick(View view) {
-        Intent intent = MemoryActivity.getStartIntent(this, 4, 5);
+        String size = PreferenceManager.getDefaultSharedPreferences(this)
+                        .getString("pref_pair_game_size", getResources().getString(R.string.pref_pair_game_default));
+        String[] ret = size.split("x");
+        Log.d("happy", "onStartMemoryClick: " + ret[0]);
+        Log.d("happy", "onStartMemoryClick: " + ret[1]);
+        int w = Integer.parseInt(ret[0]);
+        int h = Integer.parseInt(ret[1]);
+        Intent intent = PairGameActivity.getStartIntent(this, w, h);
         startActivity(intent);
         //задание на память
     }
@@ -57,4 +61,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = SettingsActivity.getStartIntent(this);
         startActivity(intent);
     }
+
+    public void onStartSmilesClick(View view){
+        Intent intent = SmilesActivity.getStartIntent(this);
+        startActivity(intent);
+    }
+
 }

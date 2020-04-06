@@ -1,8 +1,8 @@
 package com.shmagins.easyenglish;
 import androidx.annotation.NonNull;
 
-public class AnimalImages implements Images {
-    private final static int[] images = new int[]{
+public class AnimalImages {
+    public final static int[] images = new int[]{
             R.drawable.bird,
             R.drawable.black_cat,
             R.drawable.chicken,
@@ -28,10 +28,4 @@ public class AnimalImages implements Images {
             R.drawable.turtle,
             R.drawable.whale
     };
-
-    @Override
-    @NonNull
-    public int[] getIds() {
-        return images;
-    }
 }

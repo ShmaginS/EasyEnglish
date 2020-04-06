@@ -7,8 +7,8 @@ import kotlin.random.Random
 enum class Operation(val mnemonic: String) {
     PLUS("+"),
     MINUS("-"),
-    MULTIPLY("*"),
-    DIVIDE("/")
+    MULTIPLY("×"),
+    DIVIDE("÷")
 }
 
 fun calculate(operation: Operation, operand1: Int, operand2: Int) = when (operation) {

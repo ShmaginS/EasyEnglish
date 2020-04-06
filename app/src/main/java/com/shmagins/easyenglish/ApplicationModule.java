@@ -41,7 +41,7 @@ public class ApplicationModule {
 
         Application getApplication();
 
-        void inject(CalculationApplication wordsApplication);
+        void inject(BrainApplication wordsApplication);
 
         void inject(AppViewModel appViewModel);
 
