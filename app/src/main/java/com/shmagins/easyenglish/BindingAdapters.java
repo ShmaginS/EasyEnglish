@@ -21,9 +21,9 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("android:fadeOut")
-    public static void setImageFadeOut(ImageView imageView, Boolean fadeOut){
+    public static void setImageFadeOut(View view, Boolean fadeOut){
         if (fadeOut) {
-            Context context = imageView.getContext();
+            Context context = view.getContext();
             Animation anim = AnimationUtils.loadAnimation(context, R.anim.fadeout);
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -33,7 +33,7 @@ public class BindingAdapters {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    imageView.setVisibility(View.INVISIBLE);
+                    view.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -41,7 +41,7 @@ public class BindingAdapters {
 
                 }
             });
-            imageView.setAnimation(anim);
+            view.setAnimation(anim);
         }
     }
 }

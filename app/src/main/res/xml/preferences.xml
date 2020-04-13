@@ -15,9 +15,18 @@
         <ListPreference
             android:defaultValue="@string/pref_pair_game_default"
             android:dialogTitle="@string/pref_pair_game_title"
-            android:entries="@array/pref_pair_game_size"
-            android:entryValues="@array/pref_pair_game_size_values"
+            android:entries="@array/pref_pair_game_difficulty"
+            android:entryValues="@array/pref_pair_game_difficulty_values"
             android:key="pref_pair_game_size"
             android:title="@string/pref_pair_game_title" />
+        <ListPreference
+            android:defaultValue="@string/pref_pair_game_additional_default"
+            android:dialogTitle="@string/pref_pair_game_additional_title"
+            android:entries="@array/pref_pair_game_additional_difficulty"
+            android:entryValues="@array/pref_pair_game_difficulty_additional_values"
+            android:key="pref_pair_game_additional"
+            android:title="@string/pref_pair_game_title" />
+        <CheckBoxPreference
+            />
     </PreferenceCategory>
 </PreferenceScreen>

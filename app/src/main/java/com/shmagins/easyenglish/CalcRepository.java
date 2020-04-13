@@ -39,8 +39,6 @@ public class CalcRepository {
     }
 
     public void updateCalculation(Calculation calculation){
-        Log.d("happy", "updateCalculation: BLYAT CYKA");
-        Log.d("happy", "updateCalculation: " + calculation.id + " " + calculation.first + " " + calculation.operation + " " + calculation.second + " = " + calculation.result + " (answer: " + calculation.answer + ")");
         Observable.just(calculation)
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(calc -> wdb.calculationDao().update(calc),

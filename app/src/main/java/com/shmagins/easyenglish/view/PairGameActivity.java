@@ -2,8 +2,10 @@ package com.shmagins.easyenglish.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -13,43 +15,51 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.easyenglish.AnimalImages;
-import com.shmagins.easyenglish.AppViewModel;
 import com.shmagins.easyenglish.PairGame;
 import com.shmagins.easyenglish.ImageAdapter;
 import com.shmagins.easyenglish.MatrixManager;
 import com.shmagins.easyenglish.R;
-import com.shmagins.easyenglish.databinding.ActivityMemoryBinding;
+import com.shmagins.easyenglish.SmileImages;
+import com.shmagins.easyenglish.databinding.ActivityPairGameBinding;
 
 import java.util.List;
 
 public class PairGameActivity extends AppCompatActivity {
-    AppViewModel viewModel;
 
-    public static final String WIDTH = "WIDTH";
-    public static final String HEIGHT = "HEIGHT";
-    public static final String ELEMENTS = "ELEMENTS";
+    public static final String DIFFICULTY = "DIFFICULTY";
 
-    private ActivityMemoryBinding binding;
+    private ActivityPairGameBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_memory);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pair_game);
 
         Intent intent = getIntent();
         int width = 0;
         int height = 0;
         if (intent != null) {
-            width = intent.getIntExtra(WIDTH, 0);
-            height = intent.getIntExtra(HEIGHT, 0);
+            width = (intent.getIntExtra(DIFFICULTY, 0) + 1) * 2;
         }
 
-        List<Integer> elements = MatrixManager.generateImageIndexMatrixWithDuplicates(width, height, AnimalImages.images.length);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int elementWidth = (size.x - 20) / width;
+        int recyclerSize = size.y - 50 - binding.progressBar.getHeight();
+
+        height = recyclerSize / elementWidth;
+        if (width > 6){
+            height--;
+        }
+
+
+        List<Integer> elements = MatrixManager.generateImageIndexMatrixWithDuplicates(width, height, SmileImages.images.length);
         PairGame game = PairGame.getInstance();
         game.createGame(elements);
         ImageAdapter adapter = new ImageAdapter();
         adapter.setImages(
-                MatrixManager.generateImageStates(elements, AnimalImages.images)
+                MatrixManager.generateImageStates(elements, SmileImages.images)
         );
         PairGame.getInstance().subscribe(integerEventPair -> {
             switch (integerEventPair.second) {
@@ -64,8 +74,9 @@ public class PairGameActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setMessage(R.string.game_lose_message)
-                                .setTitle(R.string.memory_game_lose)
-                                .setIcon(R.drawable.crab)
+                                .setTitle(R.string.game_lose_title)
+                                .setIcon(R.drawable.animals_crab)
+                                .setOnCancelListener(dialogInterface -> PairGameActivity.this.finish())
                                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                                     PairGameActivity.this.recreate();
                                 })
@@ -79,9 +90,10 @@ public class PairGameActivity extends AppCompatActivity {
                 case WIN:
                     runOnUiThread(() -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setMessage(R.string.memory_game_win)
+                        builder.setMessage(getString(R.string.game_win_message))
                                 .setTitle(R.string.game_win_title)
-                                .setIcon(R.drawable.dog)
+                                .setIcon(R.drawable.animals_dog)
+                                .setOnCancelListener(dialogInterface -> PairGameActivity.this.finish())
                                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                                     PairGameActivity.this.recreate();
                                 })
@@ -96,9 +108,8 @@ public class PairGameActivity extends AppCompatActivity {
         });
         binding.memoryRecycler.setAdapter(adapter);
         binding.memoryRecycler.setLayoutManager(new GridLayoutManager(this, width, RecyclerView.VERTICAL, false));
-        binding.memoryRecycler.setBackgroundColor(Color.parseColor("#9eb3c2"));
 
-        binding.progressBar.setMax(PairGame.START_TIME);
+        binding.progressBar.setMax(PairGame.getInstance().getStartTime());
         binding.progressBar.setProgress(PairGame.getInstance().getTime());
     }
 
@@ -114,10 +125,9 @@ public class PairGameActivity extends AppCompatActivity {
         PairGame.getInstance().pauseGame();
     }
 
-    public static Intent getStartIntent(Context context, int width, int height) {
+    public static Intent getStartIntent(Context context, int difficulty) {
         Intent intent = new Intent(context, PairGameActivity.class);
-        intent.putExtra(WIDTH, width);
-        intent.putExtra(HEIGHT, height);
+        intent.putExtra(DIFFICULTY, difficulty);
         return intent;
     }
 }

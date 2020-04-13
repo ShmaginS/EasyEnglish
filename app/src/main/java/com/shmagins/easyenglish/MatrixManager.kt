@@ -11,7 +11,7 @@ fun generateImageIndexMatrixWithDuplicates(width: Int, height: Int, numImages: I
     }
     val indexes = MutableList(numImages) {i -> i}
     indexes.shuffle()
-    val list = MutableList(width * height) { i -> indexes[i/2]}
+    val list = MutableList(width * height) { i -> indexes[i/2 % indexes.size]}
     return list.shuffled()
 }
 fun generateImageStates(imageIndexes: List<Int>, imageResources: IntArray): List<ImageState> = imageIndexes.map { ImageState(imageResources[it], true) }

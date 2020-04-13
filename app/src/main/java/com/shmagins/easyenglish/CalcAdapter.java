@@ -26,22 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalcAdapter extends RecyclerView.Adapter {
-    private List<Calculation> calculations;
+    private CalcGame game;
 
-    {
-        calculations = new ArrayList<>();
-    }
-
-    public void setCalculations(List<Calculation> calculations) {
-        this.calculations = calculations;
-    }
-
-    public void setCalculationAnswer(int index, int answer){
-        calculations.get(index).answer = answer;
-    }
-
-    public void addCalculation(Calculation calculation) {
-        calculations.add(calculation);
+    public CalcAdapter(CalcGame game){
+        this.game = game;
     }
 
     class CalculationsViewHolder extends RecyclerView.ViewHolder {
@@ -70,11 +58,11 @@ public class CalcAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CalculationsViewHolder h = (CalculationsViewHolder) holder;
-        h.bind(calculations.get(position));
+        h.bind(game.getCalculation(position));
     }
 
     @Override
     public int getItemCount() {
-        return calculations.size();
+        return game.getCalculationCount();
     }
 }

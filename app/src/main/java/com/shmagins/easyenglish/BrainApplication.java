@@ -2,6 +2,10 @@ package com.shmagins.easyenglish;
 
 import android.app.Application;
 
+import com.shmagins.easyenglish.dagger.ApplicationModule;
+import com.shmagins.easyenglish.dagger.DaggerApplicationModule_ApplicationComponent;
+import com.shmagins.easyenglish.dagger.DatabaseModule;
+
 public class BrainApplication extends Application {
     @Override
     public void onCreate() {

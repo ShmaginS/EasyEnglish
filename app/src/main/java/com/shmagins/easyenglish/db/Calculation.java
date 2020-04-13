@@ -15,6 +15,7 @@ public class Calculation {
         this.operation = operation;
         this.result = result;
         this.answer = Integer.MIN_VALUE;
+        this.solved = false;
     }
 
     @NonNull
@@ -25,4 +26,5 @@ public class Calculation {
     public String operation;
     public int result;
     public int answer;
+    boolean solved;
 }

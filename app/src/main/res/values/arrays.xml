@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_calculation_count_entries" >
+    <string-array name="pref_calculation_count_entries">
         <item>10</item>
         <item>20</item>
         <item>50</item>
     </string-array>
-    <string-array name="pref_calculation_count_values" >
+    <string-array name="pref_calculation_count_values">
         <item>10</item>
         <item>20</item>
         <item>50</item>
     </string-array>
-    <string-array name="pref_pair_game_size" >
-        <item>2x2</item>
-        <item>4x4</item>
-        <item>4x6</item>
-        <item>6x6</item>
-        <item>6x8</item>
+    <string-array name="pref_pair_game_difficulty">
+        <item>Низкая</item>
+        <item>Средняя</item>
+        <item>Высокая</item>
+        <item>Нереальная</item>
     </string-array>
-    <string-array name="pref_pair_game_size_values" >
-        <item>2x2</item>
-        <item>4x4</item>
-        <item>4x6</item>
-        <item>6x6</item>
-        <item>6x8</item>
+    <string-array name="pref_pair_game_difficulty_values">
+        <item>low</item>
+        <item>medium</item>
+        <item>high</item>
+        <item>incredible</item>
+    </string-array>
+    <string-array name="pref_pair_game_additional_difficulty">
+        <item>Нет</item>
+        <item>Мало</item>
+        <item>Средне</item>
+        <item>Много</item>
+    </string-array>
+    <string-array name="pref_pair_game_difficulty_additional_values">
+        <item>none</item>
+        <item>few</item>
+        <item>medium</item>
+        <item>much</item>
     </string-array>
 </resources>

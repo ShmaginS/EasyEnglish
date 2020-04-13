@@ -47,12 +47,24 @@ public class MainActivity extends AppCompatActivity {
     public void onStartMemoryClick(View view) {
         String size = PreferenceManager.getDefaultSharedPreferences(this)
                         .getString("pref_pair_game_size", getResources().getString(R.string.pref_pair_game_default));
-        String[] ret = size.split("x");
-        Log.d("happy", "onStartMemoryClick: " + ret[0]);
-        Log.d("happy", "onStartMemoryClick: " + ret[1]);
-        int w = Integer.parseInt(ret[0]);
-        int h = Integer.parseInt(ret[1]);
-        Intent intent = PairGameActivity.getStartIntent(this, w, h);
+        int difficulty = 1;
+
+        switch (size){
+            case "low":
+                difficulty = 0;
+                break;
+            case "medium":
+                difficulty = 1;
+                break;
+            case "high":
+                difficulty = 2;
+                break;
+            case "incredible":
+                difficulty = 3;
+                break;
+        }
+
+        Intent intent = PairGameActivity.getStartIntent(this, difficulty);
         startActivity(intent);
         //задание на память
     }

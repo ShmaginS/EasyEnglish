@@ -23,11 +23,11 @@ public class SmilesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivitySmilesBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_smiles);
         List<Integer> ids = new ArrayList<>();
-        ids.add(R.drawable.puppy);
-        ids.add(R.drawable.turtle);
-        ids.add(R.drawable.chicken);
-        ids.add(R.drawable.whale);
-        ids.add(R.drawable.crab);
+        ids.add(R.drawable.animals_puppy);
+        ids.add(R.drawable.animals_turtle);
+        ids.add(R.drawable.animals_chicken);
+        ids.add(R.drawable.animals_whale);
+        ids.add(R.drawable.animals_crab);
         Observable.zip(
                 Observable.fromIterable(ids),
                 Observable.interval(1000, TimeUnit.MILLISECONDS), (obs, timer) -> obs)

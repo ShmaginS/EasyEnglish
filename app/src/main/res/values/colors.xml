@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#C52184</color>
-    <color name="colorPrimaryDark">#801857</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#1b3b6f</color>
+    <color name="colorPrimaryDark">#21295c</color>
+    <color name="colorAccent">#9eb3c2</color>
     <color name="backgroundColor">#FFF1FD</color>
     <color name="textColor">#000000</color>
     <color name="darkTextColor">#202923</color>
     <color name="pairGameCardColor">#FFFFFF</color>
+    <color name="pairGameBackgroundColor">#1b3b6f</color>
 </resources>
