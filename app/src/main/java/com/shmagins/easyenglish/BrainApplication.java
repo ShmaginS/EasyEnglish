@@ -7,6 +7,8 @@ import com.shmagins.easyenglish.dagger.DaggerApplicationModule_ApplicationCompon
 import com.shmagins.easyenglish.dagger.DatabaseModule;
 
 public class BrainApplication extends Application {
+    private volatile CalcGame calcGame;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,4 +24,19 @@ public class BrainApplication extends Application {
     }
 
     private ApplicationModule.ApplicationComponent applicationComponent;
+
+    public CalcGame createOrContinueCalcGame() {
+        if (calcGame == null || calcGame.isFinished()) {
+            synchronized (CalcGame.class) {
+                if (calcGame == null || calcGame.isFinished()) {
+                    calcGame = new CalcGame();
+                }
+            }
+        }
+        return calcGame;
+    }
+
+    public CalcGame getCalcGame() {
+        return calcGame;
+    }
 }

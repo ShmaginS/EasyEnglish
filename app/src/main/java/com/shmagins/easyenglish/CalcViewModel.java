@@ -2,20 +2,18 @@ package com.shmagins.easyenglish;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.text.Editable;
-import android.util.Log;
+import android.text.Layout;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shmagins.easyenglish.adapters.CalcAdapter;
 import com.shmagins.easyenglish.db.Calculation;
 import com.shmagins.easyenglish.db.CalculationDatabase;
-import com.shmagins.easyenglish.view.SmilesActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,28 +28,12 @@ public class CalcViewModel extends AndroidViewModel {
     @Inject
     Context context;
     private CalcRepository repository;
-    private CalcGame game = null;
-
-    public CalcGame getGame() {
-        if (game == null) {
-            synchronized (CalcGame.class) {
-                if (game == null) {
-                    game = new CalcGame();
-                }
-            }
-        } else if (game.isFinished()) {
-            synchronized (CalcGame.class) {
-                if (game.isFinished()) {
-                    game = new CalcGame();
-                }
-            }
-        }
-        return game;
-    }
+    private CalcGame game;
 
     public CalcViewModel(@NonNull Application application) {
         super(application);
-        ((BrainApplication) application).getApplicationComponent()
+        BrainApplication app = (BrainApplication) application;
+        app.getApplicationComponent()
                 .inject(this);
         repository = new CalcRepository(cdb);
         repository.deleteAll();
@@ -60,6 +42,7 @@ public class CalcViewModel extends AndroidViewModel {
             l.add(CalcManager.createCalculation());
         }
         repository.insertCalculations(l);
+        game = app.getCalcGame();
     }
 
     public Observable<List<Calculation>> getAll(int limit) {
@@ -120,15 +103,22 @@ public class CalcViewModel extends AndroidViewModel {
             if (holder != null) {
                 if (holder.binding.answer.getText().length() != 0) {
                     game.answer(position, Integer.parseInt(holder.binding.answer.getText().toString()));
+                } else {
+                    game.answer(position, Integer.MIN_VALUE);
                 }
             }
             if (!recycler.isComputingLayout()){
-                recycler.getAdapter().notifyItemChanged(position);
+                RecyclerView.Adapter adapter = recycler.getAdapter();
+                if (adapter != null) {
+                    adapter.notifyItemChanged(position);
+                }
             }
-            if (position < recycler.getLayoutManager().getItemCount() - 1) {
-                recycler.getLayoutManager().scrollToPosition(position + 1);
+            RecyclerView.LayoutManager manager = recycler.getLayoutManager();
+            if (manager != null) {
+                if (position < manager.getItemCount() - 1) {
+                    recycler.getLayoutManager().scrollToPosition(position + 1);
+                }
             }
-
         }
     }
 
@@ -141,16 +131,27 @@ public class CalcViewModel extends AndroidViewModel {
             if (holder != null) {
                 if (holder.binding.answer.getText().length() != 0) {
                     game.answer(position, Integer.parseInt(holder.binding.answer.getText().toString()));
+                } else {
+                    game.answer(position, Integer.MIN_VALUE);
                 }
             }
             if (!recycler.isComputingLayout()){
-                recycler.getAdapter().notifyItemChanged(position);
+                RecyclerView.Adapter adapter = recycler.getAdapter();
+                if (adapter != null) {
+                    adapter.notifyItemChanged(position);
+                }
             }
-            if (position >= 1) {
-                recycler.getLayoutManager().scrollToPosition(position - 1);
+            RecyclerView.LayoutManager manager = recycler.getLayoutManager();
+            if (manager != null) {
+                if (position >= 1) {
+                    manager.scrollToPosition(position - 1);
+                }
             }
-
         }
     }
 
+    public CalcGame createOrContinueCalcGame() {
+        game = ((BrainApplication) getApplication()).createOrContinueCalcGame();
+        return game;
+    }
 }

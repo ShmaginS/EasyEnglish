@@ -21,12 +21,11 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
         </activity>
-        <activity android:name=".view.PairGameActivity">
-        </activity>
-        <activity android:name=".view.SettingsActivity">
-        </activity>
-        <activity android:name=".view.SmilesActivity">
-        </activity>
+        <activity android:name=".view.PairGameActivity"/>
+        <activity android:name=".view.SettingsActivity"/>
+        <activity android:name=".view.SmilesActivity"/>
+        <activity android:name=".view.ResultActivity"/>
+
     </application>
 
 </manifest>

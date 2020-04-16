@@ -1,4 +1,4 @@
-package com.shmagins.easyenglish;
+package com.shmagins.easyenglish.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shmagins.easyenglish.CalcGame;
 import com.shmagins.easyenglish.databinding.CalculationCardBinding;
 import com.shmagins.easyenglish.db.Calculation;
 
@@ -32,8 +33,8 @@ public class CalcAdapter extends RecyclerView.Adapter {
         this.game = game;
     }
 
-    class CalculationsViewHolder extends RecyclerView.ViewHolder {
-        CalculationCardBinding binding;
+    public class CalculationsViewHolder extends RecyclerView.ViewHolder {
+        public CalculationCardBinding binding;
 
         CalculationsViewHolder(@NonNull CalculationCardBinding binding) {
             super(binding.getRoot());

@@ -1,4 +1,4 @@
-package com.shmagins.easyenglish;
+package com.shmagins.easyenglish.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+
+import com.shmagins.easyenglish.R;
 
 public class BindingAdapters {
     @BindingAdapter("android:src")

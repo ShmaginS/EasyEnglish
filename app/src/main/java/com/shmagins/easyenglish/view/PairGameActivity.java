@@ -4,20 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shmagins.easyenglish.AnimalImages;
 import com.shmagins.easyenglish.PairGame;
-import com.shmagins.easyenglish.ImageAdapter;
+import com.shmagins.easyenglish.adapters.PairGameAdapter;
 import com.shmagins.easyenglish.MatrixManager;
+import com.shmagins.easyenglish.PairGameViewModel;
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.SmileImages;
 import com.shmagins.easyenglish.databinding.ActivityPairGameBinding;
@@ -27,13 +27,15 @@ import java.util.List;
 public class PairGameActivity extends AppCompatActivity {
 
     public static final String DIFFICULTY = "DIFFICULTY";
-
     private ActivityPairGameBinding binding;
+    private PairGameViewModel viewModel;
+    private PairGame game;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pair_game);
+        viewModel = ViewModelProviders.of(this).get(PairGameViewModel.class);
 
         Intent intent = getIntent();
         int width = 0;
@@ -54,21 +56,17 @@ public class PairGameActivity extends AppCompatActivity {
         }
 
 
-        List<Integer> elements = MatrixManager.generateImageIndexMatrixWithDuplicates(width, height, SmileImages.images.length);
-        PairGame game = PairGame.getInstance();
-        game.createGame(elements);
-        ImageAdapter adapter = new ImageAdapter();
-        adapter.setImages(
-                MatrixManager.generateImageStates(elements, SmileImages.images)
-        );
-        PairGame.getInstance().subscribe(integerEventPair -> {
+        List<Integer> elements = MatrixManager.generateResourceList(width * height, SmileImages.images);
+        game = viewModel.getGame(width * height, elements);
+        PairGameAdapter adapter = new PairGameAdapter(game);
+        game.subscribe(integerEventPair -> {
             switch (integerEventPair.second) {
                 case SELECT:
                 case DESELECT:
                     adapter.notifyItemChanged(integerEventPair.first);
                     break;
                 case TIMER:
-                    binding.progressBar.setProgress(PairGame.getInstance().getTime());
+                    binding.progressBar.setProgress(game.getTime());
                     break;
                 case LOSE:
                     runOnUiThread(() -> {
@@ -77,12 +75,8 @@ public class PairGameActivity extends AppCompatActivity {
                                 .setTitle(R.string.game_lose_title)
                                 .setIcon(R.drawable.animals_crab)
                                 .setOnCancelListener(dialogInterface -> PairGameActivity.this.finish())
-                                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                                    PairGameActivity.this.recreate();
-                                })
-                                .setNegativeButton(R.string.no, (dialogInterface, i) -> {
-                                    PairGameActivity.this.finish();
-                                });
+                                .setPositiveButton(R.string.yes, (dialogInterface, i) -> PairGameActivity.this.recreate())
+                                .setNegativeButton(R.string.no, (dialogInterface, i) -> PairGameActivity.this.finish());
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     });
@@ -94,12 +88,8 @@ public class PairGameActivity extends AppCompatActivity {
                                 .setTitle(R.string.game_win_title)
                                 .setIcon(R.drawable.animals_dog)
                                 .setOnCancelListener(dialogInterface -> PairGameActivity.this.finish())
-                                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                                    PairGameActivity.this.recreate();
-                                })
-                                .setNegativeButton(R.string.no, (dialogInterface, i) -> {
-                                    PairGameActivity.this.finish();
-                                });
+                                .setPositiveButton(R.string.yes, (dialogInterface, i) -> PairGameActivity.this.recreate())
+                                .setNegativeButton(R.string.no, (dialogInterface, i) -> PairGameActivity.this.finish());
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     });
@@ -109,20 +99,20 @@ public class PairGameActivity extends AppCompatActivity {
         binding.memoryRecycler.setAdapter(adapter);
         binding.memoryRecycler.setLayoutManager(new GridLayoutManager(this, width, RecyclerView.VERTICAL, false));
 
-        binding.progressBar.setMax(PairGame.getInstance().getStartTime());
-        binding.progressBar.setProgress(PairGame.getInstance().getTime());
+        binding.progressBar.setMax(game.getStartTime());
+        binding.progressBar.setProgress(game.getTime());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        PairGame.getInstance().startGame();
+        game.startGame();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        PairGame.getInstance().pauseGame();
+        game.pauseGame();
     }
 
     public static Intent getStartIntent(Context context, int difficulty) {

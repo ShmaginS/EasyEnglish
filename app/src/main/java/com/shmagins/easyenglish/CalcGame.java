@@ -6,7 +6,9 @@ import android.util.Pair;
 import com.shmagins.easyenglish.db.Calculation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -17,8 +19,8 @@ public class CalcGame {
     private int milliseconds = 0;
     private long startTime = 0;
     private PublishSubject<Pair<Integer, Event>> events;
-    private List<Calculation> solved;
-    private List<Calculation> failed;
+    private Set<Integer> solved;
+    private Set<Integer> failed;
     private CompositeDisposable disposable;
 
     public int rightCount() {
@@ -49,8 +51,8 @@ public class CalcGame {
     public CalcGame() {
         this.calculations = new ArrayList<>();
         events = PublishSubject.create();
-        solved = new ArrayList<>();
-        failed = new ArrayList<>();
+        solved = new HashSet<>();
+        failed = new HashSet<>();
         disposable = new CompositeDisposable();
     }
 
@@ -70,10 +72,12 @@ public class CalcGame {
         Calculation calc = calculations.get(i);
         calc.answer = answer;
         events.onNext(new Pair<>(i, Event.UPDATE));
-        if (calc.result == answer) {
-            solved.add(calc);
-        } else {
-            failed.add(calc);
+        if (answer != Integer.MIN_VALUE) {
+            if (calc.result == answer) {
+                solved.add(i);
+            } else {
+                failed.add(i);
+            }
         }
         if (isFinished()) {
             milliseconds += SystemClock.elapsedRealtime() - startTime;

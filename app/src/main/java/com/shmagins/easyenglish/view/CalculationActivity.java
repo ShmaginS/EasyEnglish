@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shmagins.easyenglish.BrainApplication;
 import com.shmagins.easyenglish.CalcGame;
 import com.shmagins.easyenglish.CalcViewModel;
 import com.shmagins.easyenglish.ViewModelFactory;
-import com.shmagins.easyenglish.CalcAdapter;
+import com.shmagins.easyenglish.adapters.CalcAdapter;
 import com.shmagins.easyenglish.R;
 import com.shmagins.easyenglish.RecyclerViewDisabler;
 import com.shmagins.easyenglish.databinding.ActivityCalculationBinding;
@@ -35,7 +36,7 @@ public class CalculationActivity extends AppCompatActivity {
         ActivityCalculationBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_calculation);
         viewModel = ViewModelProviders.of(this, new ViewModelFactory(getApplication())).get(CalcViewModel.class);
 
-        game = viewModel.getGame();
+        game = viewModel.createOrContinueCalcGame();
         int limit = 0;
         Intent intent = getIntent();
         if (intent != null) {
@@ -48,20 +49,8 @@ public class CalculationActivity extends AppCompatActivity {
             switch (integerEventPair.second) {
                 case WIN:
                     runOnUiThread(() -> {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setMessage(getString(R.string.game_win_message_with_time, (integerEventPair.first / 1000.0f)) + "\n" + getString(R.string.game_stats, game.rightCount(), game.wrongCount()))
-                                .setTitle(R.string.game_win_title)
-                                .setIcon(R.drawable.animals_dog)
-                                .setOnCancelListener(dialogInterface -> CalculationActivity.this.finish())
-                                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                                    CalculationActivity.this.recreate();
-                                })
-                                .setNegativeButton(R.string.no, (dialogInterface, i) -> {
-                                    CalculationActivity.this.finish();
-                                });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        Intent i = new Intent(this, ResultActivity.class);
+                        startActivityForResult(i, ResultActivity.REQUEST);
                     });
                     break;
             }
@@ -96,6 +85,17 @@ public class CalculationActivity extends AppCompatActivity {
         return intent;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ResultActivity.REQUEST){
+            if (resultCode == RESULT_OK) {
+                recreate();
+            } else {
+                finish();
+            }
+        }
+    }
 }
 
 

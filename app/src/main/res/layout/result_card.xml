@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.graphics.Color"/>
+        <variable
+            name="right"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/result_text"
+            android:textColor="@{right ? Color.GREEN : Color.RED}"
+            android:layout_width="wrap_content"
+            android:textSize="24sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

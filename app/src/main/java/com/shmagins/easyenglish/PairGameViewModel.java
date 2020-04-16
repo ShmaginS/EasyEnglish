@@ -1,21 +1,35 @@
 package com.shmagins.easyenglish;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
+import android.preference.PreferenceManager;
 
-public class PairGameViewModel extends ViewModel {
-    PairGame game;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 
-    public PairGame getGame() {
-        if (game == null) {
+import java.util.List;
+
+public class PairGameViewModel extends AndroidViewModel {
+    private PairGame game;
+
+    public PairGameViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public PairGame getGame(int size, List<Integer> elements) {
+        if (game == null || game.isFinished()) {
             synchronized (PairGame.class) {
-                if (game == null) {
-                    game = new PairGame();
-                }
-            }
-        } else if (game.isFinished()) {
-            synchronized (PairGame.class) {
-                if (game.isFinished()) {
-                    game = new PairGame();
+                if (game == null || game.isFinished()) {
+                    boolean timer =
+                            PreferenceManager.getDefaultSharedPreferences(getApplication())
+                                    .getBoolean("pref_pair_game_use_timer", true);
+                    game = new PairGame.Builder()
+                            .setElements(elements)
+                            .setSize(size)
+                            .setStartTime(10000)
+                            .setSuccessIncrement(1000)
+                            .setTimerEnabled(timer)
+                            .setTimerPeriod(500)
+                            .create();
                 }
             }
         }

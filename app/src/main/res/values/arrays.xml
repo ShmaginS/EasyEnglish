@@ -23,15 +23,15 @@
         <item>incredible</item>
     </string-array>
     <string-array name="pref_pair_game_additional_difficulty">
-        <item>Нет</item>
         <item>Мало</item>
         <item>Средне</item>
         <item>Много</item>
+        <item>Очень много</item>
     </string-array>
     <string-array name="pref_pair_game_difficulty_additional_values">
-        <item>none</item>
-        <item>few</item>
+        <item>low</item>
         <item>medium</item>
-        <item>much</item>
+        <item>high</item>
+        <item>incredible</item>
     </string-array>
 </resources>
