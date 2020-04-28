@@ -11,7 +11,7 @@
     <string name="calculation_title">Задание на счёт</string>
     <string name="pair_game_title">Задание на внимание</string>
     <string name="pref_pair_game_default">medium</string>
-    <string name="pref_pair_game_additional_default">low</string>
+    <string name="pref_pair_game_additional_default">2</string>
     <string name="pref_pair_game_title">Сложность</string>
     <string name="pref_pair_game_additional_title">Количество элементов</string>
     <string name="yes">Да</string>
@@ -22,4 +22,6 @@
     <string name="close">Закрыть</string>
     <string name="play_again">Сыграть снова</string>
     <string name="result_card_text">%2d %s %2d = %2d (Ваш ответ: %2d)</string>
+    <string name="memory_game_prompt">Запомните последовательность изображений</string>
+    <string name="memory_game_answer_prompt">Повторите последовательность</string>
 </resources>

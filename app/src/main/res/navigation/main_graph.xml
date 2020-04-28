@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.shmagins.easyenglish.view.MainFragment"
+        android:name="com.shmagins.superbrain.view.MainFragment"
         android:label="fragment_words"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/statsFragment"
-        android:name="com.shmagins.easyenglish.view.StatsFragment"
+        android:name="com.shmagins.superbrain.view.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
 </navigation>

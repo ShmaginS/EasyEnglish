@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="onPlayAgainClick"
-        android:background="@drawable/button_shape"
+        android:background="@drawable/button_shape_up"
         android:layout_margin="10dp"/>
 
     <Button
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button5"
         android:onClick="onCancelClick"
-        android:background="@drawable/button_shape"
+        android:background="@drawable/button_shape_up"
         android:layout_margin="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

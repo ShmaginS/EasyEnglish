@@ -29,9 +29,13 @@
         <item>Очень много</item>
     </string-array>
     <string-array name="pref_pair_game_difficulty_additional_values">
-        <item>low</item>
-        <item>medium</item>
-        <item>high</item>
-        <item>incredible</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="spinner_modes_array" >
+        <item>@string/calculation_title</item>
+        <item>@string/pair_game_title</item>
     </string-array>
 </resources>
