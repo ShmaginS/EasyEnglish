@@ -44,9 +44,5 @@ public class ApplicationModule {
         Application getApplication();
 
         void inject(BrainApplication wordsApplication);
-
-        void inject(CalcViewModel calcViewModel);
-
-        void inject(MainFragment mainFragment);
     }
 }

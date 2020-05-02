@@ -49,7 +49,7 @@ public class CalcActivity extends AppCompatActivity {
             switch (integerEventPair.second) {
                 case WIN:
                     runOnUiThread(() -> {
-                        Intent i = new Intent(this, ResultActivity.class);
+                        Intent i = ResultActivity.getStartIntent(this, integerEventPair.first);
                         startActivityForResult(i, ResultActivity.REQUEST);
                     });
                     break;

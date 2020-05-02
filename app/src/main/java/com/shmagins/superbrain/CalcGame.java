@@ -33,6 +33,13 @@ public class CalcGame {
         return failed.size();
     }
 
+    public Set<Integer> getSolved() {
+        return solved;
+    }
+
+    public Set<Integer> getFailed() {
+        return failed;
+    }
 
     public void subscribe(Consumer<Pair<Integer, GameEvent>> consumer) {
         disposable.add(events.subscribeOn(AndroidSchedulers.mainThread())

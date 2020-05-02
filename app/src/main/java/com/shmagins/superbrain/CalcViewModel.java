@@ -21,14 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CalcViewModel extends AndroidViewModel {
-    @Inject
-    HistoryDatabase cdb;
-    @Inject
     Context context;
     private HistoryRepository repository;
     private CalcGame game;
@@ -36,8 +34,7 @@ public class CalcViewModel extends AndroidViewModel {
     public CalcViewModel(@NonNull Application application) {
         super(application);
         BrainApplication app = (BrainApplication) application;
-        app.getApplicationComponent()
-                .inject(this);
+
         game = app.getCalcGame();
     }
 

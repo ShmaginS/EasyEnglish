@@ -5,9 +5,7 @@
     <string name="game_lose_title">Поражение</string>
     <string name="game_win_title">Победа</string>
     <string name="game_lose_message">Вы проиграли.\nХотите сыграть еще раз?</string>
-    <string name="game_win_message_with_time">Вы победили!\nЗатраченное время: %.0f секунд\nХотите сыграть еще раз?</string>
     <string name="game_win_message">Вы победили!\nХотите сыграть еще раз?</string>
-    <string name="game_stats">Правильных ответов: %d\nНеправильных ответов: %d</string>
     <string name="calculation_title">Задание на счёт</string>
     <string name="pair_game_title">Задание на внимание</string>
     <string name="pref_pair_game_default">medium</string>
@@ -24,4 +22,5 @@
     <string name="result_card_text">%2d %s %2d = %2d (Ваш ответ: %2d)</string>
     <string name="memory_game_prompt">Запомните последовательность изображений</string>
     <string name="memory_game_answer_prompt">Повторите последовательность</string>
+    <string name="game_summary">Правильных ответов: %d из %d\nЗатраченное время: %02d:%02d</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.shmagins.superbrain.HistoryRepository;
 import com.shmagins.superbrain.db.HistoryDao;
 import com.shmagins.superbrain.db.HistoryDatabase;
 
@@ -21,7 +22,7 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    HistoryDatabase provideWordDatabase() {
+    HistoryDatabase provideHistoryDatabase() {
         return Room.databaseBuilder(
                 appContext,
                 HistoryDatabase.class,
@@ -35,6 +36,9 @@ public class DatabaseModule {
     HistoryDao provideWordDao(HistoryDatabase db) {
         return db.historyDao();
     }
+
+    @Provides
+    HistoryRepository provideHistoryRepository() {return new HistoryRepository(provideHistoryDatabase());}
 
     private Context appContext;
     private final String databaseName = "word_database.db";
