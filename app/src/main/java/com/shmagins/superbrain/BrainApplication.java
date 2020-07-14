@@ -3,28 +3,24 @@ package com.shmagins.superbrain;
 import android.app.Application;
 import android.util.Log;
 
-import com.shmagins.superbrain.dagger.ApplicationModule;
-import com.shmagins.superbrain.dagger.DaggerApplicationModule_ApplicationComponent;
+import com.shmagins.superbrain.dagger.DaggerDatabaseModule_DatabaseComponent;
 import com.shmagins.superbrain.dagger.DatabaseModule;
 
 public class BrainApplication extends Application {
     private volatile CalcGame calcGame;
+    private DatabaseModule.DatabaseComponent databaseComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationComponent = DaggerApplicationModule_ApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
+        databaseComponent = DaggerDatabaseModule_DatabaseComponent.builder()
                 .databaseModule(new DatabaseModule(this))
                 .build();
-        applicationComponent.inject(this);
     }
 
-    public ApplicationModule.ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
+    public DatabaseModule.DatabaseComponent getDatabaseComponent() {
+        return databaseComponent;
     }
-
-    private ApplicationModule.ApplicationComponent applicationComponent;
 
     public CalcGame createOrContinueCalcGame() {
         Log.d("happy", "createOrContinueCalcGame");

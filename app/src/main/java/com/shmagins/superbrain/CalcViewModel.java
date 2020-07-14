@@ -15,15 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.shmagins.superbrain.adapters.CalcAdapter;
-import com.shmagins.superbrain.db.HistoryDatabase;
+import com.shmagins.superbrain.db.HistoryRecord;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
-import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CalcViewModel extends AndroidViewModel {
@@ -34,8 +29,16 @@ public class CalcViewModel extends AndroidViewModel {
     public CalcViewModel(@NonNull Application application) {
         super(application);
         BrainApplication app = (BrainApplication) application;
-
+        context = application;
         game = app.getCalcGame();
+        repository = app.getDatabaseComponent().getHistoryRepository();
+    }
+
+    public void writeHistoryRecord(int elapsedTime){
+        HistoryRecord hr = new HistoryRecord();
+        hr.date = Calendar.getInstance().getTimeInMillis();
+        hr.elapsedTime = elapsedTime;
+        hr.test = TestType.CALCULATION.tag;
     }
 
     public void onDigitPressed(RecyclerView recycler, CharSequence digit) {
