@@ -10,14 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class CalcGame {
-    private List<Calculation> calculations;
+    private List<Expression<? extends Number>> expressions;
     private int milliseconds = 0;
     private long startTime = 0;
     private PublishSubject<Pair<Integer, GameEvent>> events;
@@ -47,26 +46,26 @@ public class CalcGame {
                 .subscribe(consumer));
     }
 
-    public Calculation getCalculation(int i) {
-        return calculations.get(i);
+    public Expression<? extends Number> getExpression(int i) {
+        return expressions.get(i);
     }
 
     public int getCalculationCount() {
-        return calculations.size();
+        return expressions.size();
     }
 
     public CalcGame() {
-        this.calculations = new ArrayList<>();
+        this.expressions = new ArrayList<>();
         events = PublishSubject.create();
         solved = new HashSet<>();
         failed = new HashSet<>();
         disposable = new CompositeDisposable();
     }
 
-    public void setCalculations(List<Calculation> calculations) {
-        Log.d("happy", "setCalculations " + calculations);
-        this.calculations = calculations;
-        events.onNext(new Pair<>(calculations.size(), GameEvent.UPDATE_ALL));
+    public void setExpressions(List<Expression<Integer>> expressions) {
+        Log.d("CalcGame", "setExpressions " + expressions);
+        this.expressions.addAll(expressions);
+        events.onNext(new Pair<>(this.expressions.size(), GameEvent.UPDATE_ALL));
     }
 
     public void startGame() {
@@ -77,12 +76,11 @@ public class CalcGame {
         milliseconds += SystemClock.elapsedRealtime() - startTime;
     }
 
-    public void answer(int i, int answer) {
-        Log.d("happy", "answer: " + i + " " + answer);
-        Calculation calc = calculations.get(i);
-        calc.answer = answer;
+    public void answer(int i, Number answer) {
+        Log.d("CalcGame", "answer: " + i + " " + answer);
+        Expression<? extends Number> expression = expressions.get(i);
         events.onNext(new Pair<>(i, GameEvent.UPDATE));
-        if (calc.result == answer) {
+        if (expression.getValue().equals(answer)) {
             solved.add(i);
         } else {
             failed.add(i);
@@ -98,8 +96,8 @@ public class CalcGame {
     }
 
     public boolean isFinished() {
-        Log.d("happy", "isFinished: " + solved.size() + " " + failed.size() + " " + calculations.size());
-        return solved.size() + failed.size() == calculations.size();
+        Log.d("CalcGame", "isFinished: " + solved.size() + " " + failed.size() + " " + expressions.size());
+        return solved.size() + failed.size() == expressions.size();
     }
 
 }

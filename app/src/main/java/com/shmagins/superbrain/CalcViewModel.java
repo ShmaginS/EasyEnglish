@@ -45,8 +45,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.CalculationsViewHolder holder =
-                    (CalcAdapter.CalculationsViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcAdapter.ExpressionViewHolder holder =
+                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.binding.answer;
                 answer.getText().append(digit);
@@ -58,8 +58,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.CalculationsViewHolder holder =
-                    (CalcAdapter.CalculationsViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcAdapter.ExpressionViewHolder holder =
+                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.itemView.findViewById(R.id.answer);
                 Editable text = answer.getText();
@@ -73,8 +73,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.CalculationsViewHolder holder =
-                    (CalcAdapter.CalculationsViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcAdapter.ExpressionViewHolder holder =
+                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.itemView.findViewById(R.id.answer);
                 answer.setText("");
@@ -86,8 +86,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.CalculationsViewHolder holder =
-                    (CalcAdapter.CalculationsViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcAdapter.ExpressionViewHolder holder =
+                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 if (holder.binding.answer.getText().length() != 0) {
                     game.answer(position, Integer.parseInt(holder.binding.answer.getText().toString()));
@@ -116,8 +116,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.CalculationsViewHolder holder =
-                    (CalcAdapter.CalculationsViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcAdapter.ExpressionViewHolder holder =
+                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 RecyclerView.LayoutManager manager = recycler.getLayoutManager();
                 if (manager != null) {
@@ -133,7 +133,7 @@ public class CalcViewModel extends AndroidViewModel {
         game = ((BrainApplication) getApplication()).createOrContinueCalcGame();
         CalcManager.createCalculations(limit)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(game::setCalculations);
+                .subscribe(game::setExpressions);
         return game;
     }
 

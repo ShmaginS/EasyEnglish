@@ -7,8 +7,8 @@
         <import type="android.widget.Button"/>
         <import type="androidx.recyclerview.widget.RecyclerView" />
         <variable
-            name="calculation"
-            type="com.shmagins.superbrain.Calculation" />
+            name="expression"
+            type="com.shmagins.superbrain.Expression" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,6 @@
             android:focusable="false"
             android:gravity="center"
             android:inputType="number"
-            android:text='@{(calculation.answer == Integer.MIN_VALUE) ? "" : String.valueOf(calculation.answer)}'
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,54 +32,19 @@
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <TextView
-            android:id="@+id/first"
+            android:id="@+id/expression"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:gravity="right"
-            android:text="@{String.valueOf(calculation.first)}"
-            android:textSize="48sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/operation"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <TextView
-            android:id="@+id/operation"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="@{calculation.operation}"
-            android:textSize="48sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/second"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/first"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-        <TextView
-            android:id="@+id/second"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="left"
-            android:text="@{String.valueOf(calculation.second)}"
+            android:text="@{expression.toString()}"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/operation"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -103,18 +67,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="280dp" />
-
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(calculation.id)}"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.605" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
