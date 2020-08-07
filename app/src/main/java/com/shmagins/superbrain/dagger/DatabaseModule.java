@@ -1,14 +1,13 @@
 package com.shmagins.superbrain.dagger;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Room;
 
-import com.shmagins.superbrain.BrainApplication;
-import com.shmagins.superbrain.HistoryRepository;
-import com.shmagins.superbrain.db.HistoryDao;
-import com.shmagins.superbrain.db.HistoryDatabase;
+import com.shmagins.superbrain.GameRepository;
+import com.shmagins.superbrain.db.DatabaseCallback;
+import com.shmagins.superbrain.db.GameDatabase;
+import com.shmagins.superbrain.db.GameDao;
 
 import javax.inject.Singleton;
 
@@ -25,31 +24,32 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    HistoryDatabase provideHistoryDatabase() {
+    GameDatabase provideHistoryDatabase() {
         return Room.databaseBuilder(
                 appContext,
-                HistoryDatabase.class,
+                GameDatabase.class,
                 databaseName
         ).fallbackToDestructiveMigration()
+                .addCallback(new DatabaseCallback(appContext))
                 .build();
     }
 
     @Provides
     @Singleton
-    HistoryDao provideHistoryDao(HistoryDatabase db) {
-        return db.historyDao();
+    GameDao provideGameDao(GameDatabase db) {
+        return db.gameDao();
     }
 
     @Provides
-    HistoryRepository provideHistoryRepository() {return new HistoryRepository(provideHistoryDatabase());}
+    GameRepository provideGameRepository() {return new GameRepository(provideHistoryDatabase());}
 
     @Component(modules = {
             DatabaseModule.class
     })
     public interface DatabaseComponent {
-        HistoryRepository getHistoryRepository();
+        GameRepository getGameRepository();
     }
 
     private Context appContext;
-    private final String databaseName = "word_database.db";
+    private final String databaseName = "super_brain_database.db";
 }

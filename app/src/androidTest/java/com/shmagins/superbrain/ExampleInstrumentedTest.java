@@ -1,4 +1,4 @@
-package com.example.easyenglish;
+package com.shmagins.superbrain;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.easyenglish", appContext.getPackageName());
+        assertEquals("com.shmagins.superbrain", appContext.getPackageName());
     }
 }

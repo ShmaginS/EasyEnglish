@@ -23,4 +23,5 @@
     <string name="memory_game_prompt">Запомните последовательность изображений</string>
     <string name="memory_game_answer_prompt">Повторите последовательность</string>
     <string name="game_summary">Правильных ответов: %d из %d\nЗатраченное время: %02d:%02d</string>
+    <string name="smiles_opened">Открыты новые смайлы:</string>
 </resources>

@@ -13,7 +13,7 @@ import com.shmagins.superbrain.databinding.ImageGameCardBinding;
 public class MemoryGameVariantsAdapter extends RecyclerView.Adapter {
     private MemoryGame game;
 
-    public MemoryGameVariantsAdapter(MemoryGame game){
+    public MemoryGameVariantsAdapter(MemoryGame game) {
         this.game = game;
     }
 
@@ -26,7 +26,7 @@ public class MemoryGameVariantsAdapter extends RecyclerView.Adapter {
         }
 
         @SuppressLint("WrongConstant")
-        public void bind(int position){
+        public void bind(int position) {
             binding.setSelected(false);
             binding.setRes(game.getVariants().get(position));
             binding.setVisible(true);

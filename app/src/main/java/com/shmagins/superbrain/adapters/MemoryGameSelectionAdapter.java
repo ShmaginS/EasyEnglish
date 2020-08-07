@@ -5,24 +5,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.superbrain.MemoryGame;
-
-import android.annotation.SuppressLint;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.shmagins.superbrain.MemoryGame;
-import com.shmagins.superbrain.databinding.ImageGameCardBinding;
 import com.shmagins.superbrain.databinding.SelectionImageGameCardBinding;
 
-public class MemoryGameSelectionAdapter extends RecyclerView.Adapter{
+public class MemoryGameSelectionAdapter extends RecyclerView.Adapter {
 
     private MemoryGame game;
 

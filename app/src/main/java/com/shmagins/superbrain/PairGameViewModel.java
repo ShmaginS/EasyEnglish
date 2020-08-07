@@ -25,9 +25,8 @@ public class PairGameViewModel extends AndroidViewModel {
                     game = new PairGame.Builder()
                             .setElements(elements)
                             .setSize(size)
-                            .setStartTime(10000)
+                            .setSecondsPerElement(3)
                             .setSuccessIncrement(1000)
-                            .setTimerEnabled(timer)
                             .setTimerPeriod(500)
                             .create();
                 }

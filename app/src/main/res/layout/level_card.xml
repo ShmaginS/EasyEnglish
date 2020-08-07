@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:elevation="3dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.01"
+            android:src="@{ lvl.stars == 0 ? @drawable/s0_3 : lvl.stars == 1 ? @drawable/s1_3 : lvl.stars == 2 ? @drawable/s2_3 : @drawable/s3_3}" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            android:text='@{lvl.caption}'
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@{lvl.time == 0 ?  @color/disabledText : @color/colorPrimary}"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:background="@{lvl.time == 0 ? @drawable/button_shape_down : @drawable/button_selector}"
+            android:enabled="@{lvl.time == 0 ?  false : true}"
+            android:clickable="true"
+            app:layout_constraintDimensionRatio="1:1"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="com.shmagins.superbrain.db.Stats"/>
+        <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
+
+        <variable
+            name="lvl"
+            type="com.shmagins.superbrain.db.Stats" />
+    </data>
+</layout>

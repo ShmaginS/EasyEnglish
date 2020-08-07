@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_seamless_gray"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -14,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_selector"
-            android:onClick="onStartCalculationClick"
-            android:text="Развивать мозг"
             android:elevation="1dp"
+            android:onClick="onStartCalculationClick"
+            android:text="Решить примеры"
             app:layout_constraintBottom_toTopOf="@+id/button_start_memory"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -30,7 +32,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_selector"
             android:onClick="onStartMemoryClick"
-            android:text="Развивать память"
+            android:text="Найти пару"
             app:layout_constraintBottom_toTopOf="@+id/button_startSmiles"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -44,7 +46,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_selector"
             android:onClick="onStartSmilesClick"
-            android:text="Развивать внимательность"
+            android:text="Повторить ряд"
             app:layout_constraintBottom_toTopOf="@id/button_preferences"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

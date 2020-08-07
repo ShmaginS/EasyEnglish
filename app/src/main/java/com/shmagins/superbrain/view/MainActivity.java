@@ -1,6 +1,7 @@
 package com.shmagins.superbrain.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -11,26 +12,13 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shmagins.superbrain.R;
+import com.shmagins.superbrain.databinding.FragmentMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
-        bottomNavigation.setOnNavigationItemSelectedListener((item) -> {
-            switch (item.getItemId()){
-                case R.id.bottom_navigation_exercises:
-                    navController.navigate(R.id.mainFragment);
-                    break;
-                case R.id.bottom_navigation_stats:
-                    navController.navigate(R.id.statsFragment);
-                    break;
-            }
-            return true;
-        });
-
+        FragmentMainBinding binding = DataBindingUtil.setContentView(this, R.layout.fragment_main);
     }
 
     public void onStartCalculationClick(View view) {
@@ -38,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this)
                 .getString("pref_calculation_count", getResources().getString(R.string.pref_calculation_count_default))
         );
-        Intent intent = CalcActivity.getStartIntent(this, count);
+
+
+        Intent intent = CalcGameLevelsActivity.getStartIntent(this);
         startActivity(intent);
         //задание на интеллект
     }
@@ -63,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        Intent intent = PairGameActivity.getStartIntent(this, difficulty);
+        Intent intent = PairGameLevelsActivity.getStartIntent(this);
         startActivity(intent);
         //задание на память
     }
@@ -74,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onStartSmilesClick(View view){
-        Intent intent = MemoryGameActivity.getStartIntent(this);
+        Intent intent = MemoryGameLevelsActivity.getStartIntent(this);
         startActivity(intent);
     }
 

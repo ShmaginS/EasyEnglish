@@ -1,5 +1,6 @@
 package com.shmagins.superbrain;
 
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class PairGame {
-    private final boolean timerEnabled;
     private int timerPeriod;
     private PublishSubject<Pair<Integer, GameEvent>> events;
     private CompositeDisposable disposable;
@@ -30,25 +30,28 @@ public class PairGame {
     private int startTime;
     private int size;
     private int time;
+    private int failed;
     private int additionalPosition;
+
+    public int getFailed() {
+        return failed;
+    }
 
     public static class Builder{
         List<Integer> elements;
-        boolean timerEnabled;
-        int startTime;
         int successIncrement;
         int timerPeriod;
+        int secondsPerElement;
         private int size;
 
         public Builder(){
-            timerEnabled = true;
-            startTime = 10000;
             successIncrement = 1000;
-            timerPeriod = 500;
+            timerPeriod = -500;
+            secondsPerElement = 3;
         }
 
         public PairGame create() {
-            return new PairGame(size, elements, timerEnabled, startTime, successIncrement, timerPeriod);
+            return new PairGame(size, elements, elements.size() * secondsPerElement * 1000, successIncrement, timerPeriod);
         }
 
         public Builder setElements(List<Integer> elements){
@@ -56,13 +59,9 @@ public class PairGame {
             return this;
         }
 
-        public Builder setTimerEnabled(boolean timerEnabled) {
-            this.timerEnabled = timerEnabled;
-            return this;
-        }
 
-        public Builder setStartTime(int startTime) {
-            this.startTime = startTime;
+        public Builder setSecondsPerElement(int secondsPerElement) {
+            this.secondsPerElement = secondsPerElement;
             return this;
         }
 
@@ -103,12 +102,13 @@ public class PairGame {
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            events.onNext(new Pair<>(position, GameEvent.WIN));
+                            events.onNext(new Pair<>(time, GameEvent.WIN));
                             stopGame();
                         }
                     }, 500);
                 }
             } else {
+                failed++;
                 events.onNext(new Pair<>(position, GameEvent.FAIL));
             }
             events.onNext(new Pair<>(selection.get(0), GameEvent.DESELECT));
@@ -117,11 +117,10 @@ public class PairGame {
         }
     }
 
-    private PairGame(int size, List<Integer> elements,  boolean timerEnabled, int startTime, int successIncrement, int timerPeriod){
+    private PairGame(int size, List<Integer> elements, int startTime, int successIncrement, int timerPeriod){
         this.successIncrement = successIncrement;
         disposable = new CompositeDisposable();
         events = PublishSubject.create();
-        this.timerEnabled = timerEnabled;
         this.timerPeriod = timerPeriod;
         selection = new ArrayList<>();
         this.startTime = startTime;
@@ -131,34 +130,25 @@ public class PairGame {
         additionalPosition = 0;
         time = startTime;
         this.size = size;
+        failed = 0;
     }
 
     public void startGame() {
-        if (timerEnabled) {
-            timer = Observable.interval(timerPeriod, TimeUnit.MILLISECONDS)
+        timer = Observable.interval(timerPeriod, TimeUnit.MILLISECONDS)
                     .subscribe(obs -> {
+                        Log.d("anus", "PairGame: " + time);
                         time -= timerPeriod;
-                        if (time >= 0) {
-                            events.onNext(new Pair<>(time, GameEvent.TIMER));
-                        } else {
-                            events.onNext(new Pair<>(0, GameEvent.LOSE));
-                            stopGame();
-                        }
+                        events.onNext(new Pair<>(time, GameEvent.TIMER));
                     });
-        }
     }
 
     public void pauseGame() {
-        if (timerEnabled) {
-            timer.dispose();
-        }
+        timer.dispose();
     }
 
     public void stopGame() {
         disposable.dispose();
-        if (timerEnabled) {
-            timer.dispose();
-        }
+        timer.dispose();
     }
 
     public void subscribe(Consumer<Pair<Integer, GameEvent>> consumer) {
@@ -198,19 +188,11 @@ public class PairGame {
     }
 
     public int getMaxProgress(){
-        if (timerEnabled) {
-            return startTime;
-        } else {
-            return elements.size();
-        }
+         return startTime;
     }
 
     public int getProgressDelta() {
-        if (timerEnabled) {
-            return timerPeriod;
-        } else {
-            return -2;
-        }
+        return -2;
     }
 
     public int getSize() {
@@ -218,11 +200,19 @@ public class PairGame {
     }
 
     public int getProgress() {
-        if (timerEnabled) {
-            return time;
-        } else {
-            return solved.size();
-        }
+        return time;
     }
 
+    public static class Rules {
+
+        public static int getStarsForResult(int total, int errors, int time) {
+            Log.d("Rules", "getStarsForResult: " + total + " errors: " + errors + " time " + time);
+            int stars = 3;
+            if ((total - errors) * 100 / total < 90)
+                stars--;
+            if (time < 0)
+                stars--;
+            return stars;
+        }
+    }
 }

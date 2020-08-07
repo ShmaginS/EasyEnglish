@@ -11,7 +11,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -24,35 +24,17 @@
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/buttonNext"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/buttonPrev"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_selector"
-                    android:onClick="@{(v) -> viewModel.onPreviousPressed(recycler)}"
-                    android:text="❮"
-                    android:textSize="30sp" />
-
-                <Button
-                    android:id="@+id/buttonNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_selector"
-                    android:onClick="@{(v) -> viewModel.onNextPressed(recycler)}"
-                    android:text="❯"
-                    android:textSize="30sp" />
-            </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_selector"
+                android:onClick="@{(v) -> viewModel.onNextPressed(recycler)}"
+                android:text="❯"
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,107 +85,111 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="4"
-                    android:textSize="30sp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="5"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="6"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/button14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="7"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="8"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
                     android:text="9"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/button16"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onClearPressed(recycler)}"
                     android:text="C"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1" />
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button17"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_selector"
-                    android:text="0"
-                    android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
-                    android:textSize="30sp"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:onClick="@{(v) -> viewModel.onDigitPressed(recycler, ((Button)v).getText())}"
+                    android:text="0"
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/button18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:onClick="@{(v) -> viewModel.onBackspacePressed(recycler)}"
                     android:text="⌫"
-                    android:textSize="30sp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="30sp" />
 
 
             </LinearLayout>

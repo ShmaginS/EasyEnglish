@@ -4,11 +4,8 @@ package com.shmagins.superbrain
 import java.lang.IllegalArgumentException
 import kotlin.random.Random
 
-fun generateResourceList(size: Int, imageResources: IntArray): List<Int>{
-    if (size % 2 != 0) {
-        throw IllegalArgumentException("Illegal size, must have even number of cells")
-    }
-    val resCount = imageResources.size
+fun generateResourceList(size: Int, imageResources: IntArray, limit: Int): List<Int>{
+    val resCount = limit
     val indexes = MutableList(resCount) { i -> i}
     indexes.shuffle()
     val list = MutableList(size) { i -> imageResources[indexes[i/2 % resCount]]}

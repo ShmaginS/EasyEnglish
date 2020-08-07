@@ -22,7 +22,9 @@
         android:layout_margin="5dp"
         android:id="@+id/pair_card_container"
         android:background="@drawable/pair_game_card_shape"
-        android:visibility="@{visible ? View.VISIBLE : View.INVISIBLE}">
+        android:visibility="@{visible ? View.VISIBLE : View.INVISIBLE}"
+        android:closed="@{selected ? true : false}"
+        android:fadeOut="@{visible ? false : true}">
 
         <ImageView
             android:id="@+id/memory_image"
@@ -30,16 +32,13 @@
             android:layout_height="0dp"
             android:scaleType="centerInside"
             android:background="@drawable/pair_game_card_shape"
-            android:backgroundColor='@{selected ? "#FF00FF" : "#00FFFFFF"}'
             android:src='@{res}'
-            android:fadeOut="@{visible ? false : true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintDimensionRatio="1"
-            android:padding="5dp"/>
+            app:layout_constraintDimensionRatio="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

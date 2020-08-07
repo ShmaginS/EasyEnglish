@@ -7,15 +7,13 @@ import java.util.Collection;
 import java.util.List;
 
 public class FormatUtils {
-    public static List<String> convertCalculationsToStringList(Context context, Collection<Integer> indexes, CalcGame game) {
+    public static List<String> convertExpressionToStringList(Context context, Collection<Integer> indexes, CalcGame game) {
         List<String> ret = new ArrayList<>();
         for (int i : indexes) {
-            Calculation c = game.getExpression(i);
-            String calcString = context.getString(
-                    R.string.result_card_text, c.first, c.operation, c.second, c.result, c.answer
-            );
-            ret.add(calcString);
+            Expression e = game.getExpression(i);
+            ret.add(e.toString());
         }
         return ret;
     }
+
 }

@@ -16,13 +16,28 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class CalcGame {
-    private List<Expression<? extends Number>> expressions;
+    private List<? extends Expression<? extends Number>> expressions;
     private int milliseconds = 0;
     private long startTime = 0;
     private PublishSubject<Pair<Integer, GameEvent>> events;
     private Set<Integer> solved;
     private Set<Integer> failed;
     private CompositeDisposable disposable;
+
+    public static class Rules {
+        public static final int SEC_PER_EXPR = 5;
+
+        public static int getStarsForResult(int time, int total, int errors) {
+            int stars = 3;
+            if (total * SEC_PER_EXPR < time)
+                stars--;
+            if ((float) (total - errors) * 100.0f / total < 90)
+                stars--;
+            if ((float) (total - errors) * 100.0f / total < 50)
+                stars--;
+            return stars;
+        }
+    }
 
     public int rightCount() {
         return solved.size();
@@ -62,9 +77,9 @@ public class CalcGame {
         disposable = new CompositeDisposable();
     }
 
-    public void setExpressions(List<Expression<Integer>> expressions) {
+    public void setExpressions(List<? extends Expression<? extends Number>> expressions) {
         Log.d("CalcGame", "setExpressions " + expressions);
-        this.expressions.addAll(expressions);
+        this.expressions = expressions;
         events.onNext(new Pair<>(this.expressions.size(), GameEvent.UPDATE_ALL));
     }
 
@@ -79,7 +94,6 @@ public class CalcGame {
     public void answer(int i, Number answer) {
         Log.d("CalcGame", "answer: " + i + " " + answer);
         Expression<? extends Number> expression = expressions.get(i);
-        events.onNext(new Pair<>(i, GameEvent.UPDATE));
         if (expression.getValue().equals(answer)) {
             solved.add(i);
         } else {

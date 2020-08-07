@@ -27,6 +27,7 @@ public class CalcAdapter extends RecyclerView.Adapter {
 
         public void bind(Expression expression){
             binding.setExpression(expression);
+            binding.answer.setText("");
             binding.executePendingBindings();
         }
     }

@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.shmagins.superbrain.view.CalcActivity"
+        <activity android:name="com.shmagins.superbrain.view.CalcGameActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:launchMode="singleTop">
@@ -29,9 +29,15 @@
         <activity android:name="com.shmagins.superbrain.view.SettingsActivity"/>
         <activity android:name="com.shmagins.superbrain.view.MemoryGameActivity"
             android:launchMode="singleTop"/>
-        <activity android:name="com.shmagins.superbrain.view.ResultActivity"
+        <activity android:name="com.shmagins.superbrain.view.CalcResultActivity"
             android:launchMode="singleTop"/>
-
+        <activity android:name=".view.CalcGameLevelsActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.PairGameLevelsActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.MemoryGameLevelsActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.PairGameResultActivity" />
     </application>
 
 </manifest>

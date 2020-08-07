@@ -8,4 +8,7 @@
     <color name="darkTextColor">#202923</color>
     <color name="pairGameCardColor">#FFFFFF</color>
     <color name="pairGameBackgroundColor">#1b3b6f</color>
+    <color name="disabledText">#333333</color>
+    <color name="disabledColor">#99BBF3</color>
+    <color name="skyBlue">#2196F3</color>
 </resources>

@@ -58,7 +58,7 @@ operator fun Number.unaryMinus(): Number {
     }
 }
 
-fun Number.compareTo(o: Number): Int{
+operator fun Number.compareTo(o: Number): Int{
     return when (this) {
         is Long   -> this.compareTo(o as Long)
         is Int    -> this.compareTo(o as Int)

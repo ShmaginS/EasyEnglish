@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_seamless_gray">
+
+        <ImageButton
+            android:id="@+id/button_next"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:background="@drawable/button_selector"
+            android:onClick="onNextClick"
+            android:padding="10dp"
+            android:src="@drawable/icons8_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_smile_2" />
+
+        <ImageView
+            android:id="@+id/image_smile_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_smile_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/image_smile_2"
+            app:layout_constraintTop_toTopOf="@id/image_smile_2"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <ImageView
+            android:id="@+id/image_smile_2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
+            app:layout_constraintLeft_toRightOf="@id/image_smile_1"
+            app:layout_constraintRight_toLeftOf="@id/image_smile_3"
+            app:layout_constraintTop_toBottomOf="@id/smiles_opened"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <ImageView
+            android:id="@+id/image_smile_3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_smile_2"
+            app:layout_constraintLeft_toRightOf="@id/image_smile_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_smile_2"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <ImageView
+            android:id="@+id/image_stars"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:src="@{ stars == 0 ? @drawable/s0_3 : stars == 1 ? @drawable/s1_3 : stars == 2 ? @drawable/s2_3 : @drawable/s3_3}"
+            app:layout_constraintBottom_toTopOf="@id/smiles_opened"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/level_complete"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <TextView
+            android:id="@+id/level_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Уровень пройден!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@id/image_stars"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <TextView
+            android:id="@+id/smiles_opened"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/smiles_opened"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/image_smile_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_stars"
+            app:layout_constraintVertical_bias="0.2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="stars"
+            type="Integer" />
+    </data>
+</layout>

@@ -15,30 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.shmagins.superbrain.adapters.CalcAdapter;
-import com.shmagins.superbrain.db.HistoryRecord;
+import com.shmagins.superbrain.db.CalcGameLevel;
 
-import java.util.Calendar;
+import java.util.Arrays;
+import java.util.List;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class CalcViewModel extends AndroidViewModel {
     Context context;
-    private HistoryRepository repository;
-    private CalcGame game;
+    private GameRepository repository;
+    private volatile CalcGame game;
 
     public CalcViewModel(@NonNull Application application) {
         super(application);
         BrainApplication app = (BrainApplication) application;
         context = application;
         game = app.getCalcGame();
-        repository = app.getDatabaseComponent().getHistoryRepository();
-    }
-
-    public void writeHistoryRecord(int elapsedTime){
-        HistoryRecord hr = new HistoryRecord();
-        hr.date = Calendar.getInstance().getTimeInMillis();
-        hr.elapsedTime = elapsedTime;
-        hr.test = TestType.CALCULATION.tag;
+        repository = app.getDatabaseComponent().getGameRepository();
     }
 
     public void onDigitPressed(RecyclerView recycler, CharSequence digit) {
@@ -112,28 +109,22 @@ public class CalcViewModel extends AndroidViewModel {
         }
     }
 
-    public void onPreviousPressed(RecyclerView recycler) {
-        View child = recycler.findChildViewUnder(10, 10);
-        if (child != null) {
-            int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.ExpressionViewHolder holder =
-                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
-            if (holder != null) {
-                RecyclerView.LayoutManager manager = recycler.getLayoutManager();
-                if (manager != null) {
-                    if (position >= 1) {
-                        manager.scrollToPosition(position - 1);
-                    }
-                }
-            }
-        }
-    }
-
-    public CalcGame createOrContinueCalcGame(int limit) {
+    public CalcGame createOrContinueCalcGame(int lvl) {
         game = ((BrainApplication) getApplication()).createOrContinueCalcGame();
-        CalcManager.createCalculations(limit)
+        Log.d("CalcViewModel", "createOrContinueCalcGame: lvl " + lvl);
+        ((BrainApplication) getApplication())
+                .getDatabaseComponent()
+                .getGameRepository()
+                .getCalcGameLevel(lvl)
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(game::setExpressions);
+                .subscribe(level -> {
+                    Log.d("CalcViewModel", "createOrContinueCalcGame: inside first subscribe");
+                    List<OperationDescriptor<? extends Number>> descriptors = Expressions.createOperationDescriptorsForLevel(level);
+                    Log.d("CalcViewModel", "descriptors " + descriptors);
+                    game.setExpressions(Expressions.createExpressions(descriptors, 20));
+
+                });
+
         return game;
     }
 
