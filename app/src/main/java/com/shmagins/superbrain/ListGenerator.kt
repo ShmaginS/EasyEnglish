@@ -1,18 +1,16 @@
 @file:JvmName("ListGenerator")
 package com.shmagins.superbrain
 
-import java.lang.IllegalArgumentException
 import kotlin.random.Random
 
 fun generateResourceList(size: Int, imageResources: IntArray, limit: Int): List<Int>{
-    val resCount = limit
-    val indexes = MutableList(resCount) { i -> i}
+    val indexes = MutableList(limit) { i -> i}
     indexes.shuffle()
-    val list = MutableList(size) { i -> imageResources[indexes[i/2 % resCount]]}
+    val list = MutableList(size) { i -> imageResources[indexes[i/2 % limit]]}
     return list.shuffled()
 }
 
-fun generateImageIndexList(length: Int, numImages: Int): List<Int> = MutableList(length) {i -> Random.nextInt(numImages)}
+fun generateImageIndexList(length: Int, numImages: Int): List<Int> = MutableList(numImages) { Random.nextInt(numImages)}.distinct().take(length)
 
 fun generateImageList(imageIndexes: List<Int>, imageResources: IntArray): List<Int> = imageIndexes.map { imageResources[it] }
 

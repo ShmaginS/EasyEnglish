@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.superbrain.databinding.LevelCardBinding;
+import com.shmagins.superbrain.db.MemoryGameLevel;
 import com.shmagins.superbrain.db.Stats;
 import com.shmagins.superbrain.view.MemoryGameActivity;
 
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class MemoryGameLevelsAdapter extends RecyclerView.Adapter {
 
-    private List<Stats> levels;
+    public void setLevelStats(List<Stats> levelStats) {
+        this.levelStats = levelStats;
+    }
 
-    public void setLevels(List<Stats> levels) {
+    public void setLevels(List<MemoryGameLevel> levels) {
         this.levels = levels;
     }
 
@@ -29,11 +32,11 @@ public class MemoryGameLevelsAdapter extends RecyclerView.Adapter {
             this.binding = binding;
         }
 
-        public void bind(Stats lvlStats) {
+        public void bind(Stats lvlStats, MemoryGameLevel level) {
             binding.setLvl(lvlStats);
             binding.textView.setOnClickListener(view -> {
                 int lvl = lvlStats.lvl;
-                Intent intent = MemoryGameActivity.getStartIntent(this.itemView.getContext());
+                Intent intent = MemoryGameActivity.getStartIntent(this.itemView.getContext(), lvl, level.usedImages, level.gameFieldWidth, level.gameFieldHeight);
                 this.itemView.getContext().startActivity(intent);
             });
             binding.executePendingBindings();
@@ -51,11 +54,14 @@ public class MemoryGameLevelsAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MemoryGameLevelViewHolder h = (MemoryGameLevelViewHolder) holder;
-        h.bind(levels.get(position));
+        h.bind(levelStats.get(position), levels.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return levels == null ? 0 : levels.size();
+        return levelStats == null ? 0 : levelStats.size();
     }
+
+    private List<Stats> levelStats;
+    private List<MemoryGameLevel> levels;
 }

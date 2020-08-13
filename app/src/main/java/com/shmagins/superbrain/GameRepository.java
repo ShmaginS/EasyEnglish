@@ -2,6 +2,7 @@ package com.shmagins.superbrain;
 
 import com.shmagins.superbrain.db.CalcGameLevel;
 import com.shmagins.superbrain.db.GameDatabase;
+import com.shmagins.superbrain.db.MemoryGameLevel;
 import com.shmagins.superbrain.db.PairGameLevel;
 import com.shmagins.superbrain.db.Stats;
 
@@ -34,6 +35,10 @@ public class GameRepository {
         return database.gameDao().getPairGameLevels();
     }
 
+    public Observable<List<MemoryGameLevel>> getMemoryGameLevels() {
+        return database.gameDao().getMemoryGameLevels();
+    }
+
     public Single<CalcGameLevel> getCalcGameLevel(int lvl) {
         return database.gameDao().getCalcGameLevel(lvl);
     }
@@ -43,7 +48,7 @@ public class GameRepository {
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(stats -> {
                     if (stats.stars <= stars) {
-                        database.gameDao().updateStats(game, lvl, stats.time == 0 ? time : Math.min(time, stats.time), stars, errors);
+                        database.gameDao().updateStats(game, lvl, stats.time > 0 ? time : 100000, stars, errors);
                     }
                 });
     }

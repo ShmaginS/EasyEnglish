@@ -9,5 +9,6 @@ public enum GameEvent {
     TIMER,
     FAIL,
     WIN,
+    SOUND,
     LOSE
 }

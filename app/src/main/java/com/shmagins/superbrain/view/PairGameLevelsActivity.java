@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.superbrain.BrainApplication;
 import com.shmagins.superbrain.GameRepository;
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.R;
 import com.shmagins.superbrain.adapters.PairGameLevelsAdapter;
 import com.shmagins.superbrain.db.PairGameLevel;
@@ -21,11 +22,10 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PairGameLevelsActivity extends AppCompatActivity {
-    PairGameLevelsAdapter adapter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class PairGameLevelsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MusicService.resumeMusic(this);
         loadLevels();
     }
 
@@ -49,7 +50,7 @@ public class PairGameLevelsActivity extends AppCompatActivity {
     public void loadLevels() {
         BrainApplication app = (BrainApplication) getApplication();
         GameRepository repository = app.getDatabaseComponent().getGameRepository();
-        Observable.zip(repository.getGameLevels(1), repository.getPairGameLevels(), Pair::new)
+        disposable = Observable.zip(repository.getGameLevels(1), repository.getPairGameLevels(), Pair::new)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(pair -> {
@@ -58,4 +59,16 @@ public class PairGameLevelsActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicService.pauseMusic(this);
+        if (disposable != null && !disposable.isDisposed()){
+            disposable.dispose();
+        }
+    }
+
+    private PairGameLevelsAdapter adapter;
+    private Disposable disposable;
 }

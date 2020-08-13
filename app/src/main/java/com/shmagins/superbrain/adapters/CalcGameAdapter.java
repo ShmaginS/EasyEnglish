@@ -10,10 +10,10 @@ import com.shmagins.superbrain.CalcGame;
 import com.shmagins.superbrain.Expression;
 import com.shmagins.superbrain.databinding.CalculationCardBinding;
 
-public class CalcAdapter extends RecyclerView.Adapter {
+public class CalcGameAdapter extends RecyclerView.Adapter {
     private CalcGame game;
 
-    public CalcAdapter(CalcGame game){
+    public CalcGameAdapter(CalcGame game) {
         this.game = game;
     }
 
@@ -25,7 +25,7 @@ public class CalcAdapter extends RecyclerView.Adapter {
             this.binding = binding;
         }
 
-        public void bind(Expression expression){
+        public void bind(Expression expression) {
             binding.setExpression(expression);
             binding.answer.setText("");
             binding.executePendingBindings();

@@ -1,12 +1,13 @@
 package com.shmagins.superbrain;
 
 import android.app.Application;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import java.util.List;
+
+import io.reactivex.Single;
 
 public class PairGameViewModel extends AndroidViewModel {
     private PairGame game;
@@ -15,13 +16,17 @@ public class PairGameViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public PairGame getGame(int size, List<Integer> elements) {
+    public Single<PairGame> getGame(int width, int height, int screens, int count) {
+        return Single.fromCallable(() -> {
+            List<Integer> elements = ListGenerator.generateResourceList(width * height * screens, SmileImages.images, count);
+            return getGame(width * height, elements);
+        });
+    }
+
+    private PairGame getGame(int size, List<Integer> elements) {
         if (game == null || game.isFinished()) {
             synchronized (PairGame.class) {
                 if (game == null || game.isFinished()) {
-                    boolean timer =
-                            PreferenceManager.getDefaultSharedPreferences(getApplication())
-                                    .getBoolean("pref_pair_game_use_timer", true);
                     game = new PairGame.Builder()
                             .setElements(elements)
                             .setSize(size)

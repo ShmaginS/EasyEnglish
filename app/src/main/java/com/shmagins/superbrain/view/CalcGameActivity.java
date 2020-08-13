@@ -17,24 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shmagins.superbrain.BrainApplication;
 import com.shmagins.superbrain.CalcGame;
 import com.shmagins.superbrain.CalcViewModel;
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.ViewModelFactory;
-import com.shmagins.superbrain.adapters.CalcAdapter;
+import com.shmagins.superbrain.adapters.CalcGameAdapter;
 import com.shmagins.superbrain.R;
 import com.shmagins.superbrain.RecyclerViewDisabler;
-import com.shmagins.superbrain.databinding.ActivityCalculationBinding;
 
 public class CalcGameActivity extends AppCompatActivity {
-    private CalcViewModel viewModel;
-    public static final String LVL = "LVL";
-    private CalcGame game;
-    private ActivityCalculationBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d("CalcActivity", "onCreate: ");
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_calculation);
-        viewModel = ViewModelProviders.of(this, new ViewModelFactory(getApplication())).get(CalcViewModel.class);
+        com.shmagins.superbrain.databinding.ActivityCalculationBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_calculation);
+        CalcViewModel viewModel = ViewModelProviders.of(this, new ViewModelFactory(getApplication())).get(CalcViewModel.class);
 
         int lvl = 11;
         Intent intent = getIntent();
@@ -43,7 +39,7 @@ public class CalcGameActivity extends AppCompatActivity {
         }
 
         game = viewModel.createOrContinueCalcGame(lvl);
-        CalcAdapter adapter = new CalcAdapter(game);
+        CalcGameAdapter adapter = new CalcGameAdapter(game);
 
         int finalLvl = lvl;
         game.subscribe(integerEventPair -> {
@@ -64,8 +60,9 @@ public class CalcGameActivity extends AppCompatActivity {
                                 .setGameStats(0, (finalLvl + 1) % 10 == 0 ? finalLvl + 2 : finalLvl + 1, 1000000, 0, 0);
                     }
                     runOnUiThread(() -> {
-                        Intent i = CalcResultActivity.getStartIntent(this, integerEventPair.first);
-                        startActivityForResult(i, CalcResultActivity.REQUEST);
+                        Intent i = CalcGameResultActivity.getStartIntent(this, integerEventPair.first);
+                        startActivity(i);
+                        finish();
                     });
                     break;
                 case UPDATE_ALL:
@@ -88,12 +85,14 @@ public class CalcGameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MusicService.resumeMusic(this);
         game.startGame();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        MusicService.pauseMusic(this);
         game.pauseGame();
     }
 
@@ -104,29 +103,12 @@ public class CalcGameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CalcResultActivity.REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-            } else {
-                finish();
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("happy", "onDestroy: ");
-    }
-
-    @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
+
+    public static final String LVL = "LVL";
+    private CalcGame game;
 }
 
 

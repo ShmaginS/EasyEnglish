@@ -27,7 +27,7 @@ public class MemoryGameSelectionAdapter extends RecyclerView.Adapter {
         }
 
         @SuppressLint("WrongConstant")
-        public void bind(int position) {
+        void bind(int position) {
             binding.setRes(game.getSelection().get(position));
             binding.executePendingBindings();
         }

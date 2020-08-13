@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.superbrain.BrainApplication;
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.R;
 import com.shmagins.superbrain.adapters.CalcGameLevelsAdapter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CalcGameLevelsActivity extends AppCompatActivity {
-    CalcGameLevelsAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +33,17 @@ public class CalcGameLevelsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MusicService.resumeMusic(this);
         loadLevels();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicService.pauseMusic(this);
+        if (disposable != null && !disposable.isDisposed()){
+            disposable.dispose();
+        }
     }
 
     public static Intent getStartIntent(Context context){
@@ -41,7 +52,7 @@ public class CalcGameLevelsActivity extends AppCompatActivity {
 
     public void loadLevels(){
         BrainApplication app = (BrainApplication) getApplication();
-        app.getDatabaseComponent()
+        disposable = app.getDatabaseComponent()
                 .getGameRepository()
                 .getGameLevels(0)
                 .subscribeOn(Schedulers.newThread())
@@ -51,4 +62,7 @@ public class CalcGameLevelsActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 });
     }
+
+    private CalcGameLevelsAdapter adapter;
+    private Disposable disposable;
 }

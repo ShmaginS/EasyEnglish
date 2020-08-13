@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shmagins.superbrain">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +31,7 @@
         <activity android:name="com.shmagins.superbrain.view.SettingsActivity"/>
         <activity android:name="com.shmagins.superbrain.view.MemoryGameActivity"
             android:launchMode="singleTop"/>
-        <activity android:name="com.shmagins.superbrain.view.CalcResultActivity"
+        <activity android:name="com.shmagins.superbrain.view.CalcGameResultActivity"
             android:launchMode="singleTop"/>
         <activity android:name=".view.CalcGameLevelsActivity"
             android:launchMode="singleTop"/>
@@ -37,7 +39,14 @@
             android:launchMode="singleTop"/>
         <activity android:name=".view.MemoryGameLevelsActivity"
             android:launchMode="singleTop"/>
-        <activity android:name=".view.PairGameResultActivity" />
+        <activity android:name=".view.PairGameResultActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".view.MemoryGameResultActivity"
+            android:launchMode="singleTop"/>
+        <service android:name=".MusicService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback"
+            android:stopWithTask="true" />
     </application>
 
 </manifest>

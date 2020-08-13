@@ -1,16 +1,24 @@
 package com.shmagins.superbrain.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.JobIntentService;
 import androidx.databinding.DataBindingUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.content.Intent;
+import android.content.MutableContextWrapper;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.shmagins.superbrain.BrainApplication;
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.R;
 import com.shmagins.superbrain.databinding.FragmentMainBinding;
 
@@ -19,43 +27,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FragmentMainBinding binding = DataBindingUtil.setContentView(this, R.layout.fragment_main);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     public void onStartCalculationClick(View view) {
-        int count = Integer.parseInt(
-                PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("pref_calculation_count", getResources().getString(R.string.pref_calculation_count_default))
-        );
-
-
         Intent intent = CalcGameLevelsActivity.getStartIntent(this);
         startActivity(intent);
-        //задание на интеллект
     }
 
     public void onStartMemoryClick(View view) {
-        String size = PreferenceManager.getDefaultSharedPreferences(this)
-                        .getString("pref_pair_game_size", getResources().getString(R.string.pref_pair_game_default));
-        int difficulty = 1;
-
-        switch (size){
-            case "low":
-                difficulty = 0;
-                break;
-            case "medium":
-                difficulty = 1;
-                break;
-            case "high":
-                difficulty = 2;
-                break;
-            case "incredible":
-                difficulty = 3;
-                break;
-        }
-
         Intent intent = PairGameLevelsActivity.getStartIntent(this);
         startActivity(intent);
-        //задание на память
     }
 
     public void onShowSettingsClick(View view) {
@@ -68,4 +50,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicService.resumeMusic(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicService.pauseMusic(this);
+    }
 }

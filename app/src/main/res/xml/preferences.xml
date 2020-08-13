@@ -1,37 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="@string/calculation_title">
-        <ListPreference
-            android:defaultValue="@string/pref_calculation_count_default"
-            android:dialogTitle="@string/pref_calculation_count_title"
-            android:entries="@array/pref_calculation_count_entries"
-            android:entryValues="@array/pref_calculation_count_values"
-            android:key="pref_calculation_count"
-            android:title="@string/pref_calculation_count_title" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pair_game_title">
-        <ListPreference
-            android:defaultValue="@string/pref_pair_game_default"
-            android:dialogTitle="@string/pref_pair_game_title"
-            android:entries="@array/pref_pair_game_difficulty"
-            android:entryValues="@array/pref_pair_game_difficulty_values"
-            android:key="pref_pair_game_size"
-            android:title="@string/pref_pair_game_title"/>
-        <ListPreference
-            android:defaultValue="@string/pref_pair_game_additional_default"
-            android:dialogTitle="@string/pref_pair_game_additional_title"
-            android:entries="@array/pref_pair_game_additional_difficulty"
-            android:entryValues="@array/pref_pair_game_difficulty_additional_values"
-            android:key="pref_pair_game_additional"
-            android:title="@string/pref_pair_game_additional_title" />
+    <PreferenceCategory android:title="Настройки">
         <CheckBoxPreference
-            android:key="pref_pair_game_use_timer"
-            android:title="@string/pref_pair_game_use_timer"
-            android:summaryOn="@string/pref_pair_game_use_timer_summ_on"
-            android:summaryOff="@string/pref_pair_game_use_timer_summ_off"
-            android:defaultValue="true" />
-
+            android:defaultValue="true"
+            android:key="pref_enable_music"
+            android:summaryOff="@string/pref_music_off"
+            android:summaryOn="@string/pref_music_on"
+            android:title="@string/pref_enable_music" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_enable_sound"
+            android:summaryOff="@string/pref_sound_off"
+            android:summaryOn="@string/pref_sound_on"
+            android:title="@string/pref_enable_sound" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -97,6 +97,7 @@ fun <T : Number> createExpressions(operations: MutableList<OperationDescriptor<o
     return l
 }
 
+@Suppress("Unchecked_cast")
 class OperationDescriptor<T>(private val operation: Operation, private val firstOperandMin: T, private val firstOperandMax: T, private val secondOperandMin: T, private val secondOperandMax: T, private val resultMin: T, private val resultMax: T) where T : Number{
     fun createExpression(): Expression<T> {
         var expr: Expression<T>

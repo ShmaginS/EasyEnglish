@@ -14,15 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.shmagins.superbrain.adapters.CalcAdapter;
-import com.shmagins.superbrain.db.CalcGameLevel;
+import com.shmagins.superbrain.adapters.CalcGameAdapter;
 
-import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class CalcViewModel extends AndroidViewModel {
@@ -42,8 +37,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.ExpressionViewHolder holder =
-                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcGameAdapter.ExpressionViewHolder holder =
+                    (CalcGameAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.binding.answer;
                 answer.getText().append(digit);
@@ -55,8 +50,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.ExpressionViewHolder holder =
-                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcGameAdapter.ExpressionViewHolder holder =
+                    (CalcGameAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.itemView.findViewById(R.id.answer);
                 Editable text = answer.getText();
@@ -70,8 +65,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.ExpressionViewHolder holder =
-                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcGameAdapter.ExpressionViewHolder holder =
+                    (CalcGameAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 EditText answer = holder.itemView.findViewById(R.id.answer);
                 answer.setText("");
@@ -83,8 +78,8 @@ public class CalcViewModel extends AndroidViewModel {
         View child = recycler.findChildViewUnder(10, 10);
         if (child != null) {
             int position = recycler.getChildLayoutPosition(child);
-            CalcAdapter.ExpressionViewHolder holder =
-                    (CalcAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
+            CalcGameAdapter.ExpressionViewHolder holder =
+                    (CalcGameAdapter.ExpressionViewHolder) recycler.findViewHolderForLayoutPosition(position);
             if (holder != null) {
                 if (holder.binding.answer.getText().length() != 0) {
                     game.answer(position, Integer.parseInt(holder.binding.answer.getText().toString()));

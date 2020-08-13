@@ -3,6 +3,7 @@ package com.shmagins.superbrain.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -11,16 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.shmagins.superbrain.BrainApplication;
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.R;
 import com.shmagins.superbrain.SmileImages;
+import com.shmagins.superbrain.SoundRepository;
 import com.shmagins.superbrain.databinding.ActivityPairGameResultBinding;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PairGameResultActivity extends AppCompatActivity {
-    public static final String LEVEL = "LEVEL";
-    public static final String STARS = "STARS";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,9 +37,18 @@ public class PairGameResultActivity extends AppCompatActivity {
             level = intent.getIntExtra(LEVEL, 0);
             stars = intent.getIntExtra(STARS, 0);
         }
-        Log.d("PairGameResultActivity", "level: " + level + " stars: " + stars);
+        SoundRepository sound = app.getSoundComponent().getSoundRepository();
+
+        boolean soundEnabled = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("pref_enable_sound", true);
+
+        if (soundEnabled) {
+            sound.playLevelCompleteSound();
+        }
+
         binding.setStars(stars);
-        app.getDatabaseComponent()
+
+        disposable = app.getDatabaseComponent()
                 .getGameRepository()
                 .getPairGameLevel(level)
                 .subscribeOn(Schedulers.newThread())
@@ -61,4 +73,28 @@ public class PairGameResultActivity extends AppCompatActivity {
     public void onNextClick(View view) {
         this.finish();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()){
+            disposable.dispose();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicService.resumeMusic(this);
+    }
+
+    @Override
+    protected void onPause() {
+        MusicService.pauseMusic(this);
+        super.onPause();
+    }
+
+    public static final String LEVEL = "LEVEL";
+    public static final String STARS = "STARS";
+    private Disposable disposable;
 }

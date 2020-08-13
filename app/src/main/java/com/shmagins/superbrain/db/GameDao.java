@@ -44,4 +44,7 @@ public interface GameDao {
 
     @Query("SELECT * FROM PairGameLevel ORDER BY lvl")
     Observable<List<PairGameLevel>> getPairGameLevels();
+
+    @Query("SELECT * FROM MemoryGameLevel ORDER BY lvl")
+    Observable<List<MemoryGameLevel>> getMemoryGameLevels();
 }

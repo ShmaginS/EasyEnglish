@@ -9,6 +9,7 @@ import com.shmagins.superbrain.db.DatabaseCallback;
 import com.shmagins.superbrain.db.GameDatabase;
 import com.shmagins.superbrain.db.GameDao;
 
+import javax.inject.Scope;
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -24,7 +25,7 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    GameDatabase provideHistoryDatabase() {
+    GameDatabase provideGameDatabase() {
         return Room.databaseBuilder(
                 appContext,
                 GameDatabase.class,
@@ -41,11 +42,14 @@ public class DatabaseModule {
     }
 
     @Provides
-    GameRepository provideGameRepository() {return new GameRepository(provideHistoryDatabase());}
+    GameRepository provideGameRepository(GameDatabase gd) {
+        return new GameRepository(gd);
+    }
 
     @Component(modules = {
             DatabaseModule.class
     })
+    @Singleton
     public interface DatabaseComponent {
         GameRepository getGameRepository();
     }

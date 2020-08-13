@@ -1,5 +1,6 @@
 package com.shmagins.superbrain;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.Pair;
 
@@ -24,8 +25,12 @@ public class MemoryGame {
     private List<Integer> variants;
     private volatile List<Integer> selection;
     private CompositeDisposable disposable;
+    private int milliseconds;
+    private long startTime;
     private Disposable timer;
     private long timerPeriod;
+    private int errors;
+    private boolean isReady;
 
     public MemoryGame() {
         events = PublishSubject.create();
@@ -34,22 +39,39 @@ public class MemoryGame {
         selection = new ArrayList<>();
         disposable = new CompositeDisposable();
         timerPeriod = 1500;
+        errors = 0;
+        isReady = false;
+        milliseconds = 0;
+        startTime = 0;
     }
 
     public void startGame() {
-        timer = Observable.zip(
-                Observable.interval(timerPeriod, TimeUnit.MILLISECONDS), Observable.fromIterable(elements), (t, e) -> e)
-                .subscribe(e -> events.onNext(new Pair<>(e, GameEvent.TIMER)),
-                        ex -> events.onError(ex),
-                        () -> events.onNext(new Pair<>(elements.size(), GameEvent.UPDATE)));
+        startTime = SystemClock.elapsedRealtime();
+        Log.d("TAG", "startGame: " + startTime);
+        if (!isReady) {
+            timer = Observable.zip(
+                    Observable.interval(timerPeriod, TimeUnit.MILLISECONDS), Observable.fromIterable(elements), (t, e) -> e)
+                    .subscribe(e -> events.onNext(new Pair<>(e, GameEvent.TIMER)),
+                            ex -> events.onError(ex),
+                            () -> {
+                                events.onNext(new Pair<>(elements.size(), GameEvent.UPDATE));
+                                isReady = true;
+                            });
+        }
     }
 
     public void pauseGame() {
-        timer.dispose();
+        milliseconds += SystemClock.elapsedRealtime() - startTime;
+        Log.d("TAG", "milliseconds: " + milliseconds);
+        if (isReady) {
+            timer.dispose();
+        }
     }
 
-    public void stopGame() {
+    public int stopGame() {
         disposable.dispose();
+        milliseconds += SystemClock.elapsedRealtime() - startTime;
+        return milliseconds;
     }
 
     public void subscribe(Consumer<Pair<Integer, GameEvent>> consumer) {
@@ -59,31 +81,27 @@ public class MemoryGame {
     }
 
     public void userPressed(int position) {
-        selection.add(variants.get(position));
-        events.onNext(new Pair<>(position, GameEvent.SELECT));
+        int variant = variants.get(position);
+        int currentPos = selection.size();
+        int right = elements.get(currentPos);
         int size = elements.size();
-        Log.d("happy", "userPressed: " + selection + " " + elements);
-        if (selection.size() == size) {
-            Log.d("happy", "userPressed: " + selection.size() + " " + elements.size());
-            if (isSelectionCorrect()) {
-                Log.d("happy", "userPressed: WIN");
-                events.onNext(new Pair<>(size, GameEvent.WIN));
-            } else {
-                Log.d("happy", "userPressed: LOSE");
-                events.onNext(new Pair<>(size, GameEvent.LOSE));
-            }
-        }
-    }
 
-    private boolean isSelectionCorrect() {
-        Iterator<Integer> it1 = selection.iterator();
-        Iterator<Integer> it2 = elements.iterator();
-        while (it1.hasNext()) {
-            if (!it1.next().equals(it2.next())){
-                return false;
-            }
+        if (variant == right) {
+            events.onNext(new Pair<>(0, GameEvent.SELECT));
+            events.onNext(new Pair<>(0, GameEvent.SOUND));
+            selection.add(variant);
+        } else {
+            events.onNext(new Pair<>(size - errors, GameEvent.SOUND));
+            events.onNext(new Pair<>(1, GameEvent.FAIL));
+            errors++;
         }
-        return true;
+        if (errors == size) {
+            events.onNext(new Pair<>(errors, GameEvent.LOSE));
+        }
+        if (selection.size() == size) {
+            events.onNext(new Pair<>(errors, GameEvent.WIN));
+        }
+
     }
 
     public List<Integer> getElements() {
@@ -104,5 +122,35 @@ public class MemoryGame {
 
     public void setVariants(List<Integer> variants) {
         this.variants = variants;
+    }
+
+    public boolean isFinished() {
+        return selection.size() == elements.size();
+    }
+
+    public int getErrors() {
+        return errors;
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public int getTime(){
+        return milliseconds;
+    }
+
+    public static class Rules {
+
+        public static int getStarsForResult(int total, int errors) {
+            int stars = 3;
+            if ((total - errors) * 100 / total < 90)
+                stars--;
+            if ((total - errors) * 100 / total < 50)
+                stars--;
+            if ((total - errors) * 100 / total == 0)
+                stars--;
+            return stars;
+        }
     }
 }

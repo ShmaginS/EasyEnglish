@@ -1,27 +1,17 @@
 <resources>
     <string name="app_name">Super Brain</string>
-    <string name="pref_calculation_count_title">Количество примеров</string>
     <string name="pref_calculation_count_default" >20</string>
     <string name="game_lose_title">Поражение</string>
     <string name="game_win_title">Победа</string>
-    <string name="game_lose_message">Вы проиграли.\nХотите сыграть еще раз?</string>
-    <string name="game_win_message">Вы победили!\nХотите сыграть еще раз?</string>
-    <string name="calculation_title">Задание на счёт</string>
-    <string name="pair_game_title">Задание на внимание</string>
-    <string name="pref_pair_game_default">medium</string>
-    <string name="pref_pair_game_additional_default">2</string>
-    <string name="pref_pair_game_title">Сложность</string>
-    <string name="pref_pair_game_additional_title">Количество элементов</string>
-    <string name="yes">Да</string>
-    <string name="no">Нет</string>
-    <string name="pref_pair_game_use_timer">Включить таймер</string>
-    <string name="pref_pair_game_use_timer_summ_on">Таймер включен</string>
-    <string name="pref_pair_game_use_timer_summ_off">Таймер выключен</string>
-    <string name="close">Закрыть</string>
-    <string name="play_again">Сыграть снова</string>
-    <string name="result_card_text">%2d %s %2d = %2d (Ваш ответ: %2d)</string>
     <string name="memory_game_prompt">Запомните последовательность изображений</string>
-    <string name="memory_game_answer_prompt">Повторите последовательность</string>
-    <string name="game_summary">Правильных ответов: %d из %d\nЗатраченное время: %02d:%02d</string>
+    <string name="memory_game_answer_prompt">Повторите</string>
+    <string name="calc_game_summary">Правильных ответов: %d из %d\nЗатраченное время: %02d:%02d</string>
+    <string name="memory_game_summary">Ошибок: %d\nЗатраченное время: %02d:%02d</string>
     <string name="smiles_opened">Открыты новые смайлы:</string>
+    <string name="pref_sound_off">Звук отключен</string>
+    <string name="pref_sound_on">Звук включен</string>
+    <string name="pref_enable_sound">Включить звук</string>
+    <string name="pref_music_off">Музыка отключена</string>
+    <string name="pref_music_on">Музыка включена</string>
+    <string name="pref_enable_music">Включить музыку</string>
 </resources>

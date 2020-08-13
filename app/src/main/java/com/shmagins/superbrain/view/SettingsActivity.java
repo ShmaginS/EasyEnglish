@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.shmagins.superbrain.MusicService;
 import com.shmagins.superbrain.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -32,4 +33,15 @@ public class SettingsActivity extends AppCompatActivity {
         return new Intent(context, SettingsActivity.class);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicService.resumeMusic(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicService.pauseMusic(this);
+    }
 }

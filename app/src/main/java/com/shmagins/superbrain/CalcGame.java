@@ -34,7 +34,7 @@ public class CalcGame {
             if ((float) (total - errors) * 100.0f / total < 90)
                 stars--;
             if ((float) (total - errors) * 100.0f / total < 50)
-                stars--;
+                stars = 0;
             return stars;
         }
     }

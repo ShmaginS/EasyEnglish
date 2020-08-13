@@ -88,6 +88,7 @@ public class PairGame {
             if (isSelectionCorrect()) {
                 events.onNext(new Pair<>(selection.get(0), GameEvent.SUCCESS));
                 events.onNext(new Pair<>(selection.get(1), GameEvent.SUCCESS));
+                events.onNext(new Pair<>(0, GameEvent.SOUND));
                 solved.add(selection.get(0));
                 solved.add(selection.get(1));
                 if (elements.size() == size + additionalPosition) {
@@ -109,6 +110,7 @@ public class PairGame {
                 }
             } else {
                 failed++;
+                events.onNext(new Pair<>(1, GameEvent.SOUND));
                 events.onNext(new Pair<>(position, GameEvent.FAIL));
             }
             events.onNext(new Pair<>(selection.get(0), GameEvent.DESELECT));
@@ -136,7 +138,6 @@ public class PairGame {
     public void startGame() {
         timer = Observable.interval(timerPeriod, TimeUnit.MILLISECONDS)
                     .subscribe(obs -> {
-                        Log.d("anus", "PairGame: " + time);
                         time -= timerPeriod;
                         events.onNext(new Pair<>(time, GameEvent.TIMER));
                     });
@@ -206,7 +207,6 @@ public class PairGame {
     public static class Rules {
 
         public static int getStarsForResult(int total, int errors, int time) {
-            Log.d("Rules", "getStarsForResult: " + total + " errors: " + errors + " time " + time);
             int stars = 3;
             if ((total - errors) * 100 / total < 90)
                 stars--;

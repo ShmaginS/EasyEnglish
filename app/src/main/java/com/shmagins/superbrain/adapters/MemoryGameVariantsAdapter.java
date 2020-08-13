@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shmagins.superbrain.MemoryGame;
 import com.shmagins.superbrain.databinding.ImageGameCardBinding;
+import com.shmagins.superbrain.databinding.VariantsImageGameCardBinding;
 
 public class MemoryGameVariantsAdapter extends RecyclerView.Adapter {
     private MemoryGame game;
@@ -18,18 +19,16 @@ public class MemoryGameVariantsAdapter extends RecyclerView.Adapter {
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageGameCardBinding binding;
+        VariantsImageGameCardBinding binding;
 
-        ImageViewHolder(@NonNull ImageGameCardBinding binding) {
+        ImageViewHolder(@NonNull VariantsImageGameCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
         @SuppressLint("WrongConstant")
         public void bind(int position) {
-            binding.setSelected(false);
             binding.setRes(game.getVariants().get(position));
-            binding.setVisible(true);
             binding.executePendingBindings();
         }
     }
@@ -38,7 +37,7 @@ public class MemoryGameVariantsAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ImageGameCardBinding binding = ImageGameCardBinding.inflate(inflater, parent, false);
+        VariantsImageGameCardBinding binding = VariantsImageGameCardBinding.inflate(inflater, parent, false);
         return new ImageViewHolder(binding);
     }
 

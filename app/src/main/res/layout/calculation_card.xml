@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.widget.Button"/>
-        <import type="androidx.recyclerview.widget.RecyclerView" />
         <variable
             name="expression"
             type="com.shmagins.superbrain.Expression" />
@@ -25,7 +23,7 @@
             android:focusable="false"
             android:gravity="center"
             android:inputType="number"
-            android:textSize="48sp"
+            android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +40,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="right"
             android:text="@{expression.toString()}"
-            android:textSize="48sp"
+            android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
