@@ -26,8 +26,16 @@ public class DatabaseCallback extends RoomDatabase.Callback {
 
     @Override
     public void onCreate(@NonNull SupportSQLiteDatabase db) {
-        Log.d("DatabaseCallback", "onCreate");
-        BufferedReader br = new BufferedReader(new InputStreamReader(appContext.getResources().openRawResource(R.raw.initial)));
+        prepopulateFromRaw(db, R.raw.initial);
+    }
+
+    @Override
+    public void onDestructiveMigration(@NonNull SupportSQLiteDatabase db) {
+        prepopulateFromRaw(db, R.raw.initial);
+    }
+
+    private void prepopulateFromRaw(SupportSQLiteDatabase db, int resource) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(appContext.getResources().openRawResource(resource)));
         db.beginTransaction();
         try {
             while (br.ready()) {

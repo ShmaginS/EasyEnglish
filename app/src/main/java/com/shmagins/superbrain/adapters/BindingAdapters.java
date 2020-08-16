@@ -19,11 +19,8 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.databinding.BindingAdapter;
 
-import com.google.android.material.transition.Scale;
 import com.shmagins.superbrain.R;
 
 public class BindingAdapters {
