@@ -74,12 +74,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
-        <import type="com.shmagins.superbrain.db.Stats"/>
+        <import type="com.shmagins.superbrain.common.Stats"/>
         <import type="android.view.View"/>
         <import type="android.graphics.Color"/>
 
         <variable
             name="lvl"
-            type="com.shmagins.superbrain.db.Stats" />
+            type="com.shmagins.superbrain.common.Stats" />
     </data>
 </layout>

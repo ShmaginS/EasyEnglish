@@ -3,22 +3,15 @@ package com.shmagins.superbrain;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
 
-import androidx.core.app.JobIntentService;
-import androidx.work.Worker;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.shmagins.superbrain.dagger.DaggerDatabaseModule_DatabaseComponent;
-import com.shmagins.superbrain.dagger.DaggerSoundModule_SoundComponent;
-import com.shmagins.superbrain.dagger.DatabaseModule;
-import com.shmagins.superbrain.dagger.SoundModule;
-
-import io.reactivex.Single;
+import com.shmagins.superbrain.calcgame.CalcGame;
+import com.shmagins.superbrain.di.DaggerDatabaseModule_DatabaseComponent;
+import com.shmagins.superbrain.di.DatabaseModule;
+import com.shmagins.superbrain.sound.DaggerSoundModule_SoundComponent;
+import com.shmagins.superbrain.sound.SoundModule;
+import com.shmagins.superbrain.sound.MusicService;
 
 public class BrainApplication extends Application {
     private volatile CalcGame calcGame;
@@ -27,7 +20,7 @@ public class BrainApplication extends Application {
     private SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, s) -> {
         if (s.equals("pref_enable_music")) {
             Intent intent = new Intent(this, MusicService.class);
-            if (!sharedPreferences.getBoolean("pref_enable_music", true)) {
+            if (!sharedPreferences.getBoolean("pref_enable_music", false)) {
                 stopService(intent);
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -51,7 +44,7 @@ public class BrainApplication extends Application {
         soundComponent = DaggerSoundModule_SoundComponent.builder()
                 .soundModule(new SoundModule(this))
                 .build();
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_enable_music", true)) {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_enable_music", false)) {
             Intent intent = new Intent(this, MusicService.class);
             intent.setAction(MusicService.START);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -68,7 +61,7 @@ public class BrainApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        soundComponent.getSoundRepository().soundManager.cleanup();
+        soundComponent.getSoundRepository().getSoundManager().cleanup();
     }
 
     public DatabaseModule.DatabaseComponent getDatabaseComponent() {

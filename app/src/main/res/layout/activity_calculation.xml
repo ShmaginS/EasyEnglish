@@ -205,7 +205,7 @@
 
         <variable
             name="viewModel"
-            type="com.shmagins.superbrain.CalcViewModel" />
+            type="com.shmagins.superbrain.calcgame.CalcGameViewModel" />
 
         <variable
             name="recycler"

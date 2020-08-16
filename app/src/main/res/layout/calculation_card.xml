@@ -6,7 +6,7 @@
     <data>
         <variable
             name="expression"
-            type="com.shmagins.superbrain.Expression" />
+            type="com.shmagins.superbrain.calcgame.Expression" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
